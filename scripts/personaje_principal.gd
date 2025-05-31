@@ -2,7 +2,11 @@ extends CharacterBody2D
 
 @onready var camera := $MainCamera
 @onready var cursor_follower := $CursorFollower
-var cordura : float = 74.0
+
+const CURSOR_NORMAL = preload("res://images/puntero.png")
+const CURSOR_ZOOMED = preload("res://images/ScopeReescalada.png")
+
+var cordura : float = 64.0
 var zoomed := false
 var zoom_normal := Vector2(1, 1)
 var zoom_in := Vector2(2.5, 2.5)
@@ -15,7 +19,7 @@ func _ready():
 	randomize()
 	camera.zoom = zoom_normal
 	camera.position = Vector2.ZERO
-	Input.mouse_mode = Input.MOUSE_MODE_CONFINED
+	Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
 
 func _process(delta):
 	time+=delta
@@ -80,14 +84,17 @@ func _process(delta):
 		zoomed = !zoomed
 		if zoomed:
 			camera.zoom = zoom_in
+			cursor_follower.texture = CURSOR_ZOOMED
+			cursor_follower.scale = Vector2(0.81,0.81)
 		else:
 			camera.zoom = zoom_normal
 			camera.position = Vector2.ZERO
+			cursor_follower.texture = CURSOR_NORMAL
+			cursor_follower.scale = Vector2(0.5,0.5)
 
 func follow_cursor():
 	var mouse_pos = get_viewport().get_mouse_position()
 	var world_mouse_pos = screen_to_world(mouse_pos)
-	
 	var cam_offset = (world_mouse_pos - global_position).clamp(-Vector2(300, 200), Vector2(300, 200))
 	var target_position = global_position + cam_offset
 
@@ -107,5 +114,3 @@ func _unhandled_input(event):
 func reducir_cordura(valor: int) -> void:
 	cordura = max(cordura - valor, 0)
 	print("Cordura actual:", cordura)
-	
-	

@@ -4,11 +4,11 @@
 
 [node name="Node2D" type="Node2D"]
 
+[node name="PersonajePrincipal" parent="." instance=ExtResource("1_bfths")]
+
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_left = -353.0
 offset_top = -151.0
 offset_right = -279.0
 offset_bottom = -102.0
 scale = Vector2(9.58058, 8.72945)
-
-[node name="PersonajePrincipal" parent="." instance=ExtResource("1_bfths")]

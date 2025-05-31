@@ -1,0 +1,53 @@
+[gd_resource type="SpriteFrames" load_steps=8 format=3 uid="uid://cpttu5rwdjpje"]
+
+[ext_resource type="Texture2D" uid="uid://c2l3vowls80so" path="res://sprites/EnemigoCaminando.png" id="1_o6e57"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_po8bh"]
+atlas = ExtResource("1_o6e57")
+region = Rect2(256, 0, 256, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3wv2x"]
+atlas = ExtResource("1_o6e57")
+region = Rect2(512, 0, 256, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a83ao"]
+atlas = ExtResource("1_o6e57")
+region = Rect2(768, 0, 256, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rk7il"]
+atlas = ExtResource("1_o6e57")
+region = Rect2(0, 0, 256, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xvqgs"]
+atlas = ExtResource("1_o6e57")
+region = Rect2(1024, 0, 256, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ppy6q"]
+atlas = ExtResource("1_o6e57")
+region = Rect2(1280, 0, 256, 384)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_po8bh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3wv2x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a83ao")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rk7il")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xvqgs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ppy6q")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

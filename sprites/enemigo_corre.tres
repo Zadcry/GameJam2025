@@ -1,0 +1,53 @@
+[gd_resource type="SpriteFrames" load_steps=8 format=3 uid="uid://c12e0b8ig6uqv"]
+
+[ext_resource type="Texture2D" uid="uid://chabuor6w3ks8" path="res://sprites/EnemigoCorriendo.png" id="1_kvbg8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ipyc2"]
+atlas = ExtResource("1_kvbg8")
+region = Rect2(0, 0, 256, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kg7g5"]
+atlas = ExtResource("1_kvbg8")
+region = Rect2(256, 0, 256, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1si3f"]
+atlas = ExtResource("1_kvbg8")
+region = Rect2(512, 0, 256, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kst5o"]
+atlas = ExtResource("1_kvbg8")
+region = Rect2(768, 0, 256, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nc6hg"]
+atlas = ExtResource("1_kvbg8")
+region = Rect2(1024, 0, 256, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pa4h2"]
+atlas = ExtResource("1_kvbg8")
+region = Rect2(1280, 0, 256, 384)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ipyc2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kg7g5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1si3f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kst5o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nc6hg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pa4h2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

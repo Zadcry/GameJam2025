@@ -4,8 +4,8 @@ extends Area2D
 
 @export var personaje_principal: CharacterBody2D
 
-const ALIVE_TEXTURE = preload("res://images/perro_vivo.png")
-const DEAD_TEXTURE = preload("res://images/animal_muerto.png")
+const ALIVE_TEXTURE = preload("res://sprites/Aliado1.png")
+const DEAD_TEXTURE = preload("res://sprites/Aliado1.png")
 
 var impacto_cordura : int
 var is_dead = false

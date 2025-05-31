@@ -6,7 +6,7 @@ extends Area2D
 @export var personaje_principal : CharacterBody2D
 
 const ALIVE_ANIM = preload("res://sprites/enemigoFrente.tres")
-const DEAD_ANIM = preload("res://sprites/enemigoFrente.tres")
+const DEAD_ANIM = preload("res://sprites/enemigo_corre.tres")
 
 var impacto_cordura : int
 var is_dead = false
@@ -23,6 +23,7 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 			is_dead = true
 			sprite.visible = false
 			dead_sprite.visible = true
+			dead_sprite.play()
 			dead_sprite.modulate = Color.RED
 			print("¡Disparo! Cordura bajará: ", impacto_cordura)
 

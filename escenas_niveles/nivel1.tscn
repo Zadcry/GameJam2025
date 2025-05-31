@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://b4l2ayw4n5ur7" path="res://scripts/nivel_1.gd" id="1_rlijk"]
 [ext_resource type="PackedScene" uid="uid://cl08e7cajtdbd" path="res://escenas_personajes/personaje_principal.tscn" id="2_wgnbi"]
 [ext_resource type="PackedScene" uid="uid://ccu15pplp2iyp" path="res://escenas_personajes/objetivos_enemigos.tscn" id="3_blb7x"]
-[ext_resource type="PackedScene" uid="uid://chry6ty7out0q" path="res://escenas_personajes/aliados_inocentes.tscn" id="4_rlijk"]
+[ext_resource type="PackedScene" uid="uid://dxdr60twkanmy" path="res://escenas_personajes/aliados_inocentes.tscn" id="4_rlijk"]
 
 [node name="Nivel1" type="Node2D"]
 script = ExtResource("1_rlijk")
@@ -16,15 +16,30 @@ scale = Vector2(1, 0.995587)
 mouse_filter = 2
 texture = ExtResource("1_j7hmg")
 
-[node name="Objetivos" parent="." node_paths=PackedStringArray("personaje_principal") instance=ExtResource("3_blb7x")]
-position = Vector2(424, 131)
-scale = Vector2(0.196673, 0.196673)
-personaje_principal = NodePath("../PersonajePrincipal")
+[node name="Enemigos" type="Node2D" parent="."]
+
+[node name="Objetivos" parent="Enemigos" node_paths=PackedStringArray("personaje_principal") instance=ExtResource("3_blb7x")]
+position = Vector2(425, 135)
+scale = Vector2(0.0993221, 0.0993221)
+personaje_principal = NodePath("../../PersonajePrincipal")
+
+[node name="Objetivos2" parent="Enemigos" instance=ExtResource("3_blb7x")]
+position = Vector2(527, 151)
+scale = Vector2(0.0968655, 0.0968655)
+
+[node name="Objetivos3" parent="Enemigos" instance=ExtResource("3_blb7x")]
+position = Vector2(628, 154)
+scale = Vector2(0.10514, 0.10514)
+
+[node name="Objetivos4" parent="Enemigos" instance=ExtResource("3_blb7x")]
+position = Vector2(222, 147)
+scale = Vector2(0.104458, 0.102937)
 
 [node name="AliadosInocentes" parent="." node_paths=PackedStringArray("personaje_principal") instance=ExtResource("4_rlijk")]
-position = Vector2(747, 569)
-scale = Vector2(-0.30591, 0.294093)
+position = Vector2(786, 414)
+scale = Vector2(-0.474582, 0.456248)
 personaje_principal = NodePath("../PersonajePrincipal")
 
 [node name="PersonajePrincipal" parent="." instance=ExtResource("2_wgnbi")]
+visible = false
 position = Vector2(640, 360)

@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://cl3ajmu68kdam"]
+
+[ext_resource type="Texture2D" uid="uid://cu6wdtdwvcvd2" path="res://sprites/PatoVolando1.png" id="1_1n6r4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_drnc4"]
+atlas = ExtResource("1_1n6r4")
+region = Rect2(0, 0, 576, 576)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yesqg"]
+atlas = ExtResource("1_1n6r4")
+region = Rect2(576, 0, 576, 576)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w4ac8"]
+atlas = ExtResource("1_1n6r4")
+region = Rect2(1152, 0, 576, 576)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bdgft"]
+atlas = ExtResource("1_1n6r4")
+region = Rect2(1728, 0, 576, 576)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_drnc4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yesqg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w4ac8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bdgft")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

@@ -1,8 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://chry6ty7out0q"]
+[gd_scene load_steps=4 format=3 uid="uid://chry6ty7out0q"]
 
 [ext_resource type="Script" uid="uid://tyhthj25c6bb" path="res://scripts/aliados_inocentes.gd" id="1_mdeil"]
+[ext_resource type="Texture2D" uid="uid://pppk21shwrm1" path="res://images/perro_vivo.png" id="2_cygyo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mdeil"]
+size = Vector2(535, 346)
 
 [node name="AliadosInocentes" type="Area2D"]
 script = ExtResource("1_mdeil")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_cygyo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_mdeil")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

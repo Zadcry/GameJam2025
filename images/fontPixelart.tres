@@ -1,0 +1,4 @@
+[gd_resource type="SystemFont" format=3 uid="uid://du76pnx2dp5wk"]
+
+[resource]
+font_names = PackedStringArray("Perfect DOS VGA 437 Win")

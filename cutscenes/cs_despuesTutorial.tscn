@@ -1,6 +1,63 @@
-[gd_scene load_steps=2 format=3 uid="uid://ct0cnqb068w4g"]
+[gd_scene load_steps=8 format=3 uid="uid://ct0cnqb068w4g"]
 
 [ext_resource type="Script" uid="uid://dg0h3f5g3603b" path="res://scripts/cs_despuestutorial.gd" id="1_ls82i"]
+[ext_resource type="SystemFont" uid="uid://du76pnx2dp5wk" path="res://images/fontPixelart.tres" id="2_yo8xt"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_yo8xt"]
+font = ExtResource("2_yo8xt")
+font_size = 22
+
+[sub_resource type="Animation" id="Animation_yo8xt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_y5you"]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-0.0333333, 0.566667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ls82i"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-0.133333, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t5t27"]
+_data = {
+&"RESET": SubResource("Animation_yo8xt"),
+&"fade_in": SubResource("Animation_y5you"),
+&"fade_out": SubResource("Animation_ls82i")
+}
 
 [node name="CsDespuesTutorial" type="Control"]
 layout_mode = 3
@@ -14,23 +71,25 @@ offset_bottom = 40.0
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_left = 112.0
-offset_top = 592.0
-offset_right = 1154.0
-offset_bottom = 615.0
+offset_left = 281.0
+offset_top = 593.0
+offset_right = 979.0
+offset_bottom = 627.0
+label_settings = SubResource("LabelSettings_yo8xt")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ColorRect" type="ColorRect" parent="Label"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-color = Color(0, 0, 0, 0.552941)
-
 [node name="Button" type="Button" parent="."]
 layout_mode = 0
-offset_left = 590.0
-offset_top = 649.0
-offset_right = 670.0
-offset_bottom = 680.0
+offset_left = 565.0
+offset_top = 657.0
+offset_right = 693.0
+offset_bottom = 692.0
+theme_override_fonts/font = ExtResource("2_yo8xt")
+theme_override_font_sizes/font_size = 20
 text = "Siguiente"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_t5t27")
+}

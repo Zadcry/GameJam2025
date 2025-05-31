@@ -2,11 +2,14 @@ extends Area2D
 
 @onready var sprite = $Sprite2D
 
+@export var personaje_principal: CharacterBody2D
+
 const ALIVE_TEXTURE = preload("res://images/perro_vivo.png")
 const DEAD_TEXTURE = preload("res://images/animal_muerto.png")
 
 var impacto_cordura : int
 var is_dead = false
+
 
 func _ready():
 	randomize()
@@ -18,10 +21,10 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 		if not is_dead:
 			is_dead = true
 			sprite.modulate = Color.RED
-			print("¡Objetivo clickeado! Cordura bajará: ", impacto_cordura)
+			print("¡Fuego amigo! Cordura bajará: ", impacto_cordura)
 
 			# Buscar al personaje principal
-			var personaje = get_parent().get_node("personaje_principal")
-			if personaje:
-				personaje.reducir_cordura(impacto_cordura)
+			if personaje_principal:
+				personaje_principal.reducir_cordura(impacto_cordura)
+				personaje_principal.iniciar_flash()
 				print("Bajó la cordura")

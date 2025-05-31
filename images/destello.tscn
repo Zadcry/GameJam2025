@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://p0afo1f3ff8v"]
+
+[ext_resource type="Script" uid="uid://c4q3snvc4ae1o" path="res://scripts/flash.gd" id="1_wkwld"]
+
+[node name="Destello" type="CanvasLayer"]
+
+[node name="Flash" type="ColorRect" parent="."]
+offset_left = -109.0
+offset_top = -33.0
+offset_right = 1171.0
+offset_bottom = 687.0
+scale = Vector2(1.24576, 1.1546)
+script = ExtResource("1_wkwld")

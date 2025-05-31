@@ -2,11 +2,14 @@ extends CharacterBody2D
 
 @onready var camera := $MainCamera
 @onready var cursor_follower := $CursorFollower
-var cordura : float = 100.0
+var cordura : float = 64.0
 var zoomed := false
 var zoom_normal := Vector2(1, 1)
 var zoom_in := Vector2(2.5, 2.5)
-var shake_strenght : float = 0
+var shake_strenght : float
+var time := 0.0
+var amplitude := 0
+var frequency := 0
 
 func _ready():
 	randomize()
@@ -14,21 +17,63 @@ func _ready():
 	camera.position = Vector2.ZERO
 	Input.mouse_mode = Input.MOUSE_MODE_CONFINED
 
-func _process(_delta):
+func _process(delta):
+	time+=delta
 	if zoomed:
 		follow_cursor()
 
 	var mouse_pos = get_viewport().get_mouse_position()
 	var world_mouse_pos = screen_to_world(mouse_pos)
 	
-	if cordura >= 90 and cordura <= 100:
-		shake_strenght = 1.5
+	if cordura > 95.0 and cordura <= 100.0:
+		amplitude = 2.5
+		frequency = 1.5
+		# Poner audio de latidos + respiración
+		var offset_x = sin(time * frequency) * amplitude
+		var offset_y = cos(time * frequency * 1.3) * amplitude * 0.7
+		var offset = Vector2(offset_x, offset_y)
+		cursor_follower.global_position = world_mouse_pos + offset
+	elif cordura > 85.0 and cordura <= 95:
+		# Poner audio de percusión
+		amplitude = 3.5
+		frequency = 2.5
+		var offset_x = sin(time * frequency) * amplitude
+		var offset_y = cos(time * frequency * 1.3) * amplitude * 0.7
+		var offset = Vector2(offset_x, offset_y)
+		cursor_follower.global_position = world_mouse_pos + offset
+	elif cordura > 70 and cordura <= 85:
+		# Audio música
+		var shake_strength = 0.3  # Puedes ajustar esta intensidad
 		var offset = Vector2(
-			randf_range(-shake_strenght, shake_strenght),
-			randf_range(-shake_strenght, shake_strenght)
+			randf_range(-shake_strength, shake_strength),
+			randf_range(-shake_strength, shake_strength)
 		)
-		cursor_follower.global_position = world_mouse_pos + offset	
-	else:
+		cursor_follower.global_position = world_mouse_pos + offset
+	elif cordura > 60 and cordura <= 70:
+		# No respiración + glitches
+		var shake_strength = 0.7  
+		var offset = Vector2(
+			randf_range(-shake_strength, shake_strength),
+			randf_range(-shake_strength, shake_strength)
+		)
+		cursor_follower.global_position = world_mouse_pos + offset
+	elif cordura > 45 and cordura <= 60:
+		# No respiración + glitch bajo
+		cursor_follower.global_position = world_mouse_pos
+	elif cordura > 35 and cordura <= 45:
+		# Música tensa + susurros
+		cursor_follower.global_position = world_mouse_pos
+	elif cordura > 20 and cordura <= 35:
+		# Glitch medio
+		cursor_follower.global_position = world_mouse_pos
+	elif cordura > 10 and cordura <= 20:
+		# Música (?
+		cursor_follower.global_position = world_mouse_pos
+	elif cordura >= 1 and cordura <= 10:
+		# Glitch (???
+		cursor_follower.global_position = world_mouse_pos
+	elif cordura < 1:
+		# Visuales grises, cambio de ????? - saturación, viñeta
 		cursor_follower.global_position = world_mouse_pos
 	
 	if Input.is_action_just_pressed("toggle_zoom"):
@@ -48,3 +93,11 @@ func follow_cursor():
 func screen_to_world(screen_pos: Vector2) -> Vector2:
 	# Usamos el viewport transform + la cámara manualmente
 	return camera.get_canvas_transform().affine_inverse() * screen_pos
+
+func _unhandled_input(event):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		print("Click detectado en personaje")
+
+func reducir_cordura(valor: int) -> void:
+	cordura = max(cordura - valor, 0)
+	print("Cordura actual:", cordura)

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://chry6ty7out0q"]
+
+[ext_resource type="Script" uid="uid://tyhthj25c6bb" path="res://scripts/aliados_inocentes.gd" id="1_mdeil"]
+
+[node name="AliadosInocentes" type="Area2D"]
+script = ExtResource("1_mdeil")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]

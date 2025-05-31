@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dyh0y40k7ejc0"]
+
+[ext_resource type="Script" uid="uid://cli2iwhkxtqws" path="res://scripts/tutorial.gd" id="1_d5d52"]
+[ext_resource type="PackedScene" uid="uid://cl08e7cajtdbd" path="res://escenas_personajes/personaje_principal.tscn" id="2_ygumn"]
+[ext_resource type="PackedScene" uid="uid://ccu15pplp2iyp" path="res://escenas_personajes/objetivos_enemigos.tscn" id="3_lramp"]
+
+[node name="Tutorial" type="Node2D"]
+script = ExtResource("1_d5d52")
+
+[node name="PersonajePrincipal" parent="." instance=ExtResource("2_ygumn")]
+
+[node name="Objetivos" parent="." instance=ExtResource("3_lramp")]
+position = Vector2(347, -174)
+
+[node name="Objetivos2" parent="." instance=ExtResource("3_lramp")]
+position = Vector2(-395, -152)
+
+[node name="Objetivos3" parent="." instance=ExtResource("3_lramp")]
+position = Vector2(349, 142)

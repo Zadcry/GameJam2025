@@ -1,9 +1,5 @@
 extends Node2D
 
 @onready var personaje : CharacterBody2D = $PersonajePrincipal
-
-func _ready() -> void:
-	pass
-
-func _process(_delta: float) -> void:
-	pass
+@onready var enemigo1 : Area2D = $Objetivos
+@onready var aliado1 : Area2D = $AliadosInocentes

@@ -6,7 +6,7 @@ extends CharacterBody2D
 
 const CURSOR_NORMAL = preload("res://images/puntero.png")
 const CURSOR_ZOOMED = preload("res://images/ScopeReescalada.png")
-const FLASH_DURATION := 0.75
+const FLASH_DURATION := 3.0
 
 var cordura : float
 var zoomed := false

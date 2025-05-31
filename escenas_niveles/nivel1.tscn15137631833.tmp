@@ -12,18 +12,27 @@ script = ExtResource("1_rlijk")
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_right = 40.0
 offset_bottom = 40.0
-scale = Vector2(1, 0.995587)
 mouse_filter = 2
 texture = ExtResource("1_j7hmg")
 
 [node name="Objetivos" parent="." node_paths=PackedStringArray("personaje_principal") instance=ExtResource("3_blb7x")]
-position = Vector2(424, 131)
-scale = Vector2(0.196673, 0.196673)
+position = Vector2(359, 262)
+scale = Vector2(0.558663, 0.558663)
 personaje_principal = NodePath("../PersonajePrincipal")
 
 [node name="AliadosInocentes" parent="." node_paths=PackedStringArray("personaje_principal") instance=ExtResource("4_rlijk")]
-position = Vector2(747, 569)
+position = Vector2(924, 252)
 scale = Vector2(-0.30591, 0.294093)
+personaje_principal = NodePath("../PersonajePrincipal")
+
+[node name="AliadosInocentes2" parent="." node_paths=PackedStringArray("personaje_principal") instance=ExtResource("4_rlijk")]
+position = Vector2(822, 547)
+scale = Vector2(-0.30251, 0.37749)
+personaje_principal = NodePath("../PersonajePrincipal")
+
+[node name="AliadosInocentes3" parent="." node_paths=PackedStringArray("personaje_principal") instance=ExtResource("4_rlijk")]
+position = Vector2(1029, 414)
+scale = Vector2(-0.387859, 0.361363)
 personaje_principal = NodePath("../PersonajePrincipal")
 
 [node name="PersonajePrincipal" parent="." instance=ExtResource("2_wgnbi")]

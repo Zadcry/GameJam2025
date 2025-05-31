@@ -1,20 +1,31 @@
-[gd_scene load_steps=4 format=3 uid="uid://ccu15pplp2iyp"]
+[gd_scene load_steps=5 format=3 uid="uid://ccu15pplp2iyp"]
 
 [ext_resource type="Script" uid="uid://bkadux7ti6ka1" path="res://scripts/objetivos.gd" id="1_y8dkt"]
 [ext_resource type="Texture2D" uid="uid://pppk21shwrm1" path="res://images/perro_vivo.png" id="2_enb8y"]
+[ext_resource type="SpriteFrames" uid="uid://cpttu5rwdjpje" path="res://sprites/enemigoFrente.tres" id="3_enb8y"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_h7p40"]
-size = Vector2(241, 156)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_enb8y"]
+size = Vector2(19.5978, 29.0883)
 
 [node name="Objetivos" type="Area2D"]
 script = ExtResource("1_y8dkt")
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Sprite3" type="Sprite2D" parent="."]
+visible = false
 scale = Vector2(0.447222, 0.447222)
 texture = ExtResource("2_enb8y")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, 0)
-shape = SubResource("RectangleShape2D_h7p40")
+position = Vector2(-1.90735e-06, 0.499999)
+rotation = -3.14159
+scale = Vector2(9.89909, -11.0354)
+shape = SubResource("RectangleShape2D_enb8y")
+
+[node name="alive_anim" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("3_enb8y")
+frame = 1
+
+[node name="dead_anim" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("3_enb8y")
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]

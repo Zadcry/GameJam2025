@@ -4,6 +4,7 @@ extends Node2D
 @onready var aliados : Node = $Aliados
 @onready var enemigos : Node = $Enemigos
 @onready var enterTxt : CanvasLayer = $Enter
+@onready var misionTxt : CanvasLayer = $Mision
 @onready var menu_pausa = preload("res://menu_pausa/Menu_P.tscn").instantiate()
 @onready var game_over_menu = preload("res://game_over/gameo.tscn").instantiate()
 
@@ -25,6 +26,7 @@ var paused = false
 
 func _ready():
 	enterTxt.visible=false
+	misionTxt.visible=true
 	# Agregar el menú de pausa como hijo
 	add_child(menu_pausa)
 	menu_pausa.process_mode = Node.PROCESS_MODE_ALWAYS
@@ -39,6 +41,11 @@ func _ready():
 	game_over_menu.z_index = 100
 	# Inicialmente ocultar el cursor del sistema durante el juego
 	Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
+
+func _input(event):
+	if event is InputEventKey and event.pressed and event.keycode == KEY_ENTER and levelBeaten:
+		get_tree().change_scene_to_file("res://escenas_niveles/nivel2.tscn")
+		return
 
 func _process(delta: float) -> void:
 	checkGameOver(delta)
@@ -91,25 +98,6 @@ func acercar_personaje(personaje: Area2D, delta):
 		nueva_escala.y = min(nueva_escala.y, MAX_SCALE)
 		personaje.scale = nueva_escala
 
-	# Crecimiento del collider con límite
-	var collider = personaje.get_node_or_null("CollisionShape2D")
-	if collider and collider.shape and position_reached == false:
-		var shape = collider.shape
-		if shape is RectangleShape2D:
-			if shape.extents.x < MAX_COLLIDER_EXTENTS.x - 0.1 or shape.extents.y < MAX_COLLIDER_EXTENTS.y - 0.1:
-				var new_extents = shape.extents + Vector2.ONE * enemy_grown_speed * delta
-				new_extents.x = min(new_extents.x, MAX_COLLIDER_EXTENTS.x)
-				new_extents.y = min(new_extents.y, MAX_COLLIDER_EXTENTS.y)
-				shape.extents = new_extents
-			else:
-				shape.extents = MAX_COLLIDER_EXTENTS  # Forzar extents exactos al límite
-		elif shape is CircleShape2D:
-			if shape.radius < MAX_COLLIDER_RADIUS - 0.1:
-				var new_radius = shape.radius + enemy_grown_speed * delta * 10
-				shape.radius = min(new_radius, MAX_COLLIDER_RADIUS)
-			else:
-				shape.radius = MAX_COLLIDER_RADIUS  # Forzar radio exacto al límite
-
 func buscarAliadosVivos(delta):
 	tiempo_acumulado += delta
 	if tiempo_acumulado >= intervalo:
@@ -126,6 +114,8 @@ func checkGameOver(delta):
 			aliadosMuertos+=1
 	if aliadosMuertos == 2 and !levelBeaten:
 		print("todos los aliados muertos")
+		misionTxt.visible=false
+		enterTxt.visible=false
 		game_over_menu.show_game_over()
 		return
 	else:

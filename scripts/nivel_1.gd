@@ -25,6 +25,9 @@ var levelBeaten = false
 var game_over = false
 var enemy_states: Dictionary = {}
 
+var tiempoAcomuladoEnemigos = 0.0
+var intervaloEnemigos = 1.0
+
 func _ready():
 	enterTxt.visible=false
 	misionTxt.visible=true
@@ -51,6 +54,7 @@ func _input(event):
 
 func _process(delta: float) -> void:
 	checkGameOver(delta)
+	enemyShootingSFX(delta)
 	
 	if game_over or get_tree().paused:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -87,7 +91,7 @@ func acercar_personaje(personaje: Area2D, delta):
 		enemy_states[personaje] = {"position_reached": false}
 
 	# Debug print to track enemy state
-	print("Enemy: ", personaje.name, " Pos: ", personaje.position.y, " Reached: ", enemy_states[personaje]["position_reached"], " Scale: ", personaje.scale)
+	#print("Enemy: ", personaje.name, " Pos: ", personaje.position.y, " Reached: ", enemy_states[personaje]["position_reached"], " Scale: ", personaje.scale)
 
 	# Movement
 	if personaje.position.y < MAX_POSITION_Y:
@@ -166,3 +170,11 @@ func resume_enemies():
 			else:
 				enemigo.is_shooting = false
 	Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
+
+func enemyShootingSFX(delta):
+	tiempoAcomuladoEnemigos += delta
+	if tiempoAcomuladoEnemigos >= intervaloEnemigos:
+		tiempoAcomuladoEnemigos -= intervaloEnemigos
+		for enemigo in enemigos.get_children():
+			if enemigo.is_shooting:
+				enemigo.shooting_sfx.play()

@@ -3,6 +3,7 @@ extends Area2D
 @onready var sprite = $alive_anim
 @onready var dead_sprite = $dead_anim
 @onready var shooting_sprite = $shooting_anim
+@onready var shooting_sfx = $shooting_sfx
 
 @export var personaje_principal : CharacterBody2D
 

@@ -3,6 +3,7 @@ extends CharacterBody2D
 @onready var camera := $MainCamera
 @onready var cursor_follower := $CursorFollower
 @onready var flash_rect := $PantallaFlash
+@onready var menu_p := preload("res://menu_pausa/Menu_P.tscn").instantiate()
 
 const CURSOR_NORMAL = preload("res://images/puntero.png")
 const CURSOR_ZOOMED = preload("res://images/ScopeReescalada.png")
@@ -10,6 +11,8 @@ const FLASH_DURATION := 3.0
 
 var cordura : float
 var zoomed := false
+var paused := false
+var state := true
 var zoom_normal := Vector2(1, 1)
 var zoom_in := Vector2(2.5, 2.5)
 var shake_strenght : float
@@ -20,6 +23,10 @@ var flash_timer = 0.0
 var flashing := false
 
 func _ready():
+	add_child(menu_p)
+	menu_p.process_mode = Node.PROCESS_MODE_ALWAYS
+	menu_p.player_node = self  # Asignar este nodo como referencia al menú
+	menu_p.hide()
 	randomize()
 	camera.zoom = zoom_normal
 	camera.position = Vector2.ZERO
@@ -28,31 +35,32 @@ func _ready():
 	flash_rect.visible = false
 
 func _process(delta):
-	time+=delta
+	if paused:
+		return
+	
+	time += delta
 	if zoomed:
 		follow_cursor()
 
 	var mouse_pos = get_viewport().get_mouse_position()
 	var world_mouse_pos = screen_to_world(mouse_pos)
-	
+
 	if flashing:
 		flash_timer += delta
-		var t = flash_timer/FLASH_DURATION
+		var t = flash_timer / FLASH_DURATION
 		flash_rect.modulate.a = lerp(1.0, 0.0, t)
 		if t >= 1.0:
 			flashing = false
 			flash_rect.visible = false
-	
+
 	if GLOBAL.cordura > 95.0 and GLOBAL.cordura <= 100.0:
 		amplitude = 2.5
 		frequency = 1.5
-		# Poner audio de latidos + respiración
 		var offset_x = sin(time * frequency) * amplitude
 		var offset_y = cos(time * frequency * 1.3) * amplitude * 0.7
 		var offset = Vector2(offset_x, offset_y)
 		cursor_follower.global_position = world_mouse_pos + offset
 	elif GLOBAL.cordura > 85.0 and GLOBAL.cordura <= 95:
-		# Poner audio de percusión
 		amplitude = 3.5
 		frequency = 2.5
 		var offset_x = sin(time * frequency) * amplitude
@@ -60,51 +68,41 @@ func _process(delta):
 		var offset = Vector2(offset_x, offset_y)
 		cursor_follower.global_position = world_mouse_pos + offset
 	elif GLOBAL.cordura > 70 and GLOBAL.cordura <= 85:
-		# Audio música
-		var shake_strength = 0.4  # <-------
+		var shake_strength = 0.4
 		var offset = Vector2(
 			randf_range(-shake_strength, shake_strength),
 			randf_range(-shake_strength, shake_strength)
 		)
 		cursor_follower.global_position = world_mouse_pos + offset
 	elif GLOBAL.cordura > 60 and GLOBAL.cordura <= 70:
-		# No respiración + glitches
-		var shake_strength = 0.8  
+		var shake_strength = 0.8
 		var offset = Vector2(
 			randf_range(-shake_strength, shake_strength),
 			randf_range(-shake_strength, shake_strength)
 		)
 		cursor_follower.global_position = world_mouse_pos + offset
-	elif GLOBAL.cordura > 45 and GLOBAL.cordura <= 60:
-		# No respiración + glitch bajo
+	else:
 		cursor_follower.global_position = world_mouse_pos
-	elif GLOBAL.cordura > 35 and GLOBAL.cordura <= 45:
-		# Música tensa + susurros
-		cursor_follower.global_position = world_mouse_pos
-	elif GLOBAL.cordura > 20 and GLOBAL.cordura <= 35:
-		# Glitch medio
-		cursor_follower.global_position = world_mouse_pos
-	elif GLOBAL.cordura > 10 and GLOBAL.cordura <= 20:
-		# Música (?
-		cursor_follower.global_position = world_mouse_pos
-	elif GLOBAL.cordura >= 1 and GLOBAL.cordura <= 10:
-		# Glitch (???
-		cursor_follower.global_position = world_mouse_pos
-	elif GLOBAL.cordura < 1:
-		# Visuales grises, cambio de ????? - saturación, viñeta
-		cursor_follower.global_position = world_mouse_pos
-	
-	if Input.is_action_just_pressed("toggle_zoom"):
+
+	if Input.is_action_just_pressed("toggle_zoom") and !paused:
 		zoomed = !zoomed
 		if zoomed:
 			camera.zoom = zoom_in
 			cursor_follower.texture = CURSOR_ZOOMED
-			cursor_follower.scale = Vector2(0.81,0.81)
+			cursor_follower.scale = Vector2(0.81, 0.81)
 		else:
 			camera.zoom = zoom_normal
 			camera.position = Vector2.ZERO
 			cursor_follower.texture = CURSOR_NORMAL
-			cursor_follower.scale = Vector2(0.5,0.5)
+			cursor_follower.scale = Vector2(0.5, 0.5)
+
+	if Input.is_action_just_pressed("ui_cancel") and !zoomed:
+		if !paused:
+			menu_p.show_pause_menu()
+			menu_p.visible = true
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+			get_tree().paused = true
+			paused = true
 
 func follow_cursor():
 	var mouse_pos = get_viewport().get_mouse_position()
@@ -126,6 +124,8 @@ func reducir_cordura(valor: int) -> void:
 	print("Cordura actual:", GLOBAL.cordura)
 
 func _unhandled_input(event):
+	if paused:
+		return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		iniciar_flash()
 
@@ -134,3 +134,6 @@ func iniciar_flash():
 	flash_rect.modulate.a = 1.0
 	flashing = true
 	flash_timer = 0.0
+
+func hide_cursor():
+	Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN

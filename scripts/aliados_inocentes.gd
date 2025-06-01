@@ -10,7 +10,7 @@ const DEAD_TEXTURE = preload("res://sprites/AliadoMuerto.png")
 var impacto_cordura : int
 var is_dead = false
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	# print(GLOBAL.cordura)
 	
 	if is_dead: 

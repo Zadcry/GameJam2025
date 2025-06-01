@@ -1,0 +1,108 @@
+[gd_scene load_steps=7 format=3 uid="uid://dbj7violkykp"]
+
+[ext_resource type="Texture2D" uid="uid://kk4ukow0rjl8" path="res://images/Fondo Cielo Oscuro.png" id="1_j7hmg"]
+[ext_resource type="Script" uid="uid://b4l2ayw4n5ur7" path="res://scripts/nivel_1.gd" id="1_rlijk"]
+[ext_resource type="PackedScene" uid="uid://cl08e7cajtdbd" path="res://escenas_personajes/personaje_principal.tscn" id="2_wgnbi"]
+[ext_resource type="PackedScene" uid="uid://ccu15pplp2iyp" path="res://escenas_personajes/objetivos_enemigos.tscn" id="3_blb7x"]
+[ext_resource type="PackedScene" uid="uid://dxdr60twkanmy" path="res://escenas_personajes/aliados_inocentes.tscn" id="4_rlijk"]
+[ext_resource type="Texture2D" uid="uid://ctjercrfndl2s" path="res://images/tecla_enter.png" id="6_6w8va"]
+
+[node name="Nivel1" type="Node2D"]
+script = ExtResource("1_rlijk")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_top = -2.0
+offset_right = 1280.0
+offset_bottom = 718.0
+scale = Vector2(1.00113, 1.01688)
+mouse_filter = 2
+texture = ExtResource("1_j7hmg")
+metadata/_edit_group_ = true
+
+[node name="Enemigos" type="Node2D" parent="."]
+
+[node name="Objetivos" parent="Enemigos" node_paths=PackedStringArray("personaje_principal") instance=ExtResource("3_blb7x")]
+position = Vector2(1136, 168)
+scale = Vector2(0.0993221, 0.0993221)
+personaje_principal = NodePath("../../PersonajePrincipal")
+
+[node name="Objetivos2" parent="Enemigos" node_paths=PackedStringArray("personaje_principal") instance=ExtResource("3_blb7x")]
+position = Vector2(123, 143)
+scale = Vector2(0.0966484, 0.0966484)
+personaje_principal = NodePath("../../PersonajePrincipal")
+
+[node name="Objetivos3" parent="Enemigos" node_paths=PackedStringArray("personaje_principal") instance=ExtResource("3_blb7x")]
+position = Vector2(363, 166)
+scale = Vector2(0.102738, 0.102738)
+personaje_principal = NodePath("../../PersonajePrincipal")
+
+[node name="Aliados" type="Node2D" parent="."]
+
+[node name="AliadosInocentes" parent="Aliados" node_paths=PackedStringArray("personaje_principal") instance=ExtResource("4_rlijk")]
+position = Vector2(794, 471)
+rotation = 3.14159
+scale = Vector2(0.474582, -0.456248)
+personaje_principal = NodePath("../../PersonajePrincipal")
+
+[node name="AliadosInocentes2" parent="Aliados" node_paths=PackedStringArray("personaje_principal") instance=ExtResource("4_rlijk")]
+position = Vector2(413, 511)
+rotation = 3.14159
+scale = Vector2(0.474582, -0.456248)
+personaje_principal = NodePath("../../PersonajePrincipal")
+
+[node name="PersonajePrincipal" parent="." instance=ExtResource("2_wgnbi")]
+position = Vector2(640, 360)
+
+[node name="Mision" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Mision"]
+offset_left = 523.0
+offset_top = 13.0
+offset_right = 639.0
+offset_bottom = 66.0
+scale = Vector2(1.3584, 1.6384)
+color = Color(0, 0, 0, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Mision"]
+offset_left = 529.0
+offset_top = 13.0
+offset_right = 745.0
+offset_bottom = 109.0
+scale = Vector2(0.638498, 0.638498)
+
+[node name="Label" type="Label" parent="Mision/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Misión 1:"
+
+[node name="Label2" type="Label" parent="Mision/VBoxContainer"]
+layout_mode = 2
+text = "• Elimina a 2 enemigos
+• Mantén un aliado vivo"
+
+[node name="Enter" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="Enter"]
+offset_left = 1010.0
+offset_top = 611.0
+offset_right = 1050.0
+offset_bottom = 651.0
+scale = Vector2(6.75442, 2.75108)
+color = Color(0.621524, 0.621524, 0.621524, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Enter"]
+offset_left = 1017.0
+offset_top = 630.0
+offset_right = 2085.0
+offset_bottom = 990.0
+scale = Vector2(0.236818, 0.236818)
+
+[node name="TextureRect" type="TextureRect" parent="Enter/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("6_6w8va")
+
+[node name="Label" type="Label" parent="Enter/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "Siguiente nivel"

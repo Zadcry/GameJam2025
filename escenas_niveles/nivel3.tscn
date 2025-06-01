@@ -91,7 +91,7 @@ scale = Vector2(0.470784, -0.418303)
 personaje_principal = NodePath("../PersonajePrincipal")
 
 [node name="PersonajePrincipal" parent="." instance=ExtResource("3_uuyws")]
-position = Vector2(640, 360)
+position = Vector2(0, -2)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

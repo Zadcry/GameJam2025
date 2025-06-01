@@ -3,11 +3,13 @@ extends CharacterBody2D
 @onready var camera := $MainCamera
 @onready var cursor_follower := $CursorFollower
 @onready var flash_rect := $PantallaFlash
+@onready var filtro := $Filtro
+@onready var disparo := $Disparo
 @onready var menu_p := preload("res://menu_pausa/Menu_P.tscn").instantiate()
 
 const CURSOR_NORMAL = preload("res://images/puntero.png")
 const CURSOR_ZOOMED = preload("res://images/ScopeReescalada.png")
-const FLASH_DURATION := 3.0
+const FLASH_DURATION := 3.2
 
 var cordura : float
 var zoomed := false
@@ -60,6 +62,7 @@ func _process(delta):
 		var offset_y = cos(time * frequency * 1.3) * amplitude * 0.7
 		var offset = Vector2(offset_x, offset_y)
 		cursor_follower.global_position = world_mouse_pos + offset
+		filtro.modulate = Color(1,1,1,0.1)
 		# print("Cordura entre 95 y 100: ", GLOBAL.cordura)
 	elif GLOBAL.cordura > 85.0 and GLOBAL.cordura <= 95:
 		amplitude = 3.5
@@ -69,6 +72,7 @@ func _process(delta):
 		var offset = Vector2(offset_x, offset_y)
 		cursor_follower.global_position = world_mouse_pos + offset
 		print("Cordura entre 85 y 95: ", GLOBAL.cordura)
+		filtro.modulate = Color(1,1,1,0.2)
 	elif GLOBAL.cordura > 70 and GLOBAL.cordura <= 85:
 		var shake_strength = 0.4
 		var offset = Vector2(
@@ -77,6 +81,7 @@ func _process(delta):
 		)
 		cursor_follower.global_position = world_mouse_pos + offset
 		print("Cordura entre 70 y 85: ", GLOBAL.cordura)
+		filtro.modulate = Color(1,1,1,0.3)
 	elif GLOBAL.cordura > 60 and GLOBAL.cordura <= 70:
 		var shake_strength = 0.8
 		var offset = Vector2(
@@ -85,6 +90,7 @@ func _process(delta):
 		)
 		cursor_follower.global_position = world_mouse_pos + offset
 		print("Cordura entre 60 y 70: ", GLOBAL.cordura)
+		filtro.modulate = Color(1,1,1,0.4)
 	elif GLOBAL.cordura > 45 and GLOBAL.cordura <= 60:
 		var shake_strength = 1
 		var offset = Vector2(
@@ -93,18 +99,23 @@ func _process(delta):
 		)
 		cursor_follower.global_position = world_mouse_pos + offset
 		print("Cordura entre 45 y 60: ", GLOBAL.cordura)
+		filtro.modulate = Color(1,1,1,0.5)
 	elif GLOBAL.cordura > 35 and GLOBAL.cordura <= 45:
 		cursor_follower.global_position = world_mouse_pos
 		print("Cordura entre 35 y 45: ", GLOBAL.cordura)
+		filtro.modulate = Color(1,1,1,0.55)
 	elif GLOBAL.cordura > 20 and GLOBAL.cordura <= 35:
 		cursor_follower.global_position = world_mouse_pos
 		print("Cordura entre 20 y 35: ", GLOBAL.cordura)
+		filtro.modulate = Color(1,1,1,0.6)
 	elif GLOBAL.cordura > 10 and GLOBAL.cordura <= 20:
 		cursor_follower.global_position = world_mouse_pos
 		print("Cordura entre 10 y 20: ", GLOBAL.cordura)
+		filtro.modulate = Color(1,1,1,0.6)
 	elif GLOBAL.cordura >= 1 and GLOBAL.cordura <= 10:
 		cursor_follower.global_position = world_mouse_pos
 		print("Cordura entre 1 y 10: ", GLOBAL.cordura)
+		filtro.modulate = Color(1,1,1,0.6)
 	elif GLOBAL.cordura < 1:
 		cursor_follower.global_position = world_mouse_pos
 		print("Cordura en 0: ", GLOBAL.cordura)
@@ -155,6 +166,7 @@ func _unhandled_input(event):
 	if paused:
 		return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and GLOBAL.scoped:
+		disparo.play()
 		iniciar_flash()
 
 func iniciar_flash():

@@ -4,6 +4,8 @@ extends Node2D
 @onready var aliado1 : Area2D = $AliadosInocentes
 @onready var aliado2 : Area2D = $AliadosInocentes2
 @onready var aliado3 : Area2D = $AliadosInocentes3
+@onready var inocente : Sprite2D = $Inocente/Sprite2D
+@onready var inocente2 : Sprite2D = $Inocente2/Sprite2D
 @onready var enemigos : Node = $Enemigos
 
 const enemy_grown_speed : float = 0.015
@@ -14,6 +16,11 @@ const MAX_COLLIDER_EXTENTS = Vector2(64, 64)
 const MAX_COLLIDER_RADIUS = 64.0
 var position_reached: bool = false
 const reached_anim = preload("res://sprites/enemigoDisparando.tres")
+const inocente_sprite = preload("res://sprites/CivilPeruano.png")
+
+func _ready() -> void:
+	inocente.texture = inocente_sprite
+	inocente2.texture = inocente_sprite
 
 func _process(delta: float) -> void:
 	for enemigo in enemigos.get_children():
@@ -21,7 +28,6 @@ func _process(delta: float) -> void:
 			acercar_personaje(enemigo, delta)
 
 func acercar_personaje(personaje: Area2D, delta):
-	
 	if position_reached and !personaje.is_dead:
 		personaje.is_shooting = true
 	elif personaje.is_dead:

@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cl08e7cajtdbd"]
+[gd_scene load_steps=5 format=3 uid="uid://cl08e7cajtdbd"]
 
 [ext_resource type="Script" uid="uid://gj51csrjeae6" path="res://scripts/personaje_principal.gd" id="1_xsu42"]
 [ext_resource type="Texture2D" uid="uid://cyuir1fp3rqy4" path="res://images/puntero.png" id="2_4bc3g"]
+[ext_resource type="AudioStream" uid="uid://dj8cnyrhv0xfq" path="res://audio/sfx/Disparo y Recarga.wav" id="3_1yame"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_n83jj"]
 
@@ -15,9 +16,17 @@ texture = ExtResource("2_4bc3g")
 [node name="MainCamera" type="Camera2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("SegmentShape2D_n83jj")
 disabled = true
+
+[node name="Filtro" type="ColorRect" parent="."]
+offset_left = -645.0
+offset_top = -385.0
+offset_right = -605.0
+offset_bottom = -345.0
+scale = Vector2(32.5049, 18.6768)
+mouse_filter = 2
+color = Color(0.577008, 0.577008, 0.577008, 1)
 
 [node name="PantallaFlash" type="ColorRect" parent="."]
 offset_left = -645.0
@@ -25,3 +34,6 @@ offset_top = -385.0
 offset_right = -605.0
 offset_bottom = -345.0
 scale = Vector2(32.3078, 18.6768)
+
+[node name="Disparo" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_1yame")

@@ -5,10 +5,11 @@ extends CharacterBody2D
 @onready var cursor_follower := $CursorFollower
 @onready var flash_rect := $PantallaFlash
 @onready var menu_p = preload("res://menu_pausa/Menu_P.tscn").instantiate()
+@onready var disparo := $Disparo
 
 const CURSOR_NORMAL = preload("res://images/puntero.png")
 const CURSOR_ZOOMED = preload("res://images/ScopeReescalada.png")
-const FLASH_DURATION := 3.0
+const FLASH_DURATION := 3.2
 
 var cordura : float
 var zoomed := false
@@ -131,6 +132,7 @@ func _unhandled_input(event):
 	if paused or game_over:
 		return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and GLOBAL.scoped:
+		disparo.play()
 		iniciar_flash()
 
 func follow_cursor():

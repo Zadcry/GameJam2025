@@ -15,8 +15,10 @@ var typewriter_speed = 0.05  # Time per character in seconds
 @onready var slide_text = $Label
 @onready var next_button = $Button
 @onready var animation_player = $AnimationPlayer
+@onready var disparo = $disparo
 
 func _ready():
+	disparo.play()
 	# Connect the button's pressed signal
 	next_button.pressed.connect(_on_next_button_pressed)
 	# Set up label background
@@ -40,18 +42,25 @@ func update_slide():
 	next_button.hide()
 	is_animating = true
 	
-	# Start fade-out animation
-	animation_player.play("fade_out")
-	await animation_player.animation_finished
-	
-	# Load new slide content
-	slide_image.texture = load(slides[current_slide]["image"])
-	slide_text.text = ""
-	
-	# Start fade-in animation
-	animation_player.play("fade_in")
-	await animation_player.animation_finished
-	
+	if current_slide == 0:
+		slide_image.texture = load(slides[current_slide]["image"])
+		slide_text.text = ""
+		
+		animation_player.play("start_fade_in")
+		await animation_player.animation_finished
+	else:
+		# Start fade-out animation
+		animation_player.play("fade_out")
+		await animation_player.animation_finished
+		
+		# Load new slide content
+		slide_image.texture = load(slides[current_slide]["image"])
+		slide_text.text = ""
+		
+		# Start fade-in animation
+		animation_player.play("fade_in")
+		await animation_player.animation_finished
+		
 	# Start typewriter animation
 	start_typewriter_effect(slides[current_slide]["text"])
 

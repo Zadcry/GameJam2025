@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://ct0cnqb068w4g"]
+[gd_scene load_steps=11 format=3 uid="uid://ct0cnqb068w4g"]
 
 [ext_resource type="Script" uid="uid://dg0h3f5g3603b" path="res://scripts/cs_despuestutorial.gd" id="1_ls82i"]
-[ext_resource type="SystemFont" path="res://images/fontPixelart.tres" id="2_yo8xt"]
+[ext_resource type="SystemFont" uid="uid://du76pnx2dp5wk" path="res://images/fontPixelart.tres" id="2_yo8xt"]
+[ext_resource type="AudioStream" uid="uid://cd48vq7afrnf0" path="res://audio/sfx/Disparo.wav" id="3_y5you"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_yo8xt"]
 font = ExtResource("2_yo8xt")
@@ -16,6 +17,18 @@ tracks/0/path = NodePath("TextureRect:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -34,7 +47,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(-0.0333333, 0.566667),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+"values": [Color(0, 0, 0, 1), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_ls82i"]
@@ -49,14 +62,47 @@ tracks/0/keys = {
 "times": PackedFloat32Array(-0.133333, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+"values": [Color(1, 1, 1, 1), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_t5t27"]
+resource_name = "start_fade_in"
+length = 3.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-0.233333, 1, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0.044586, 0.044586, 0.044586, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_cokuf"]
+resource_name = "start_fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-0.1, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(0, 0, 0, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_t5t27"]
 _data = {
 &"RESET": SubResource("Animation_yo8xt"),
 &"fade_in": SubResource("Animation_y5you"),
-&"fade_out": SubResource("Animation_ls82i")
+&"fade_out": SubResource("Animation_ls82i"),
+&"start_fade_in": SubResource("Animation_t5t27"),
+&"start_fade_out": SubResource("Animation_cokuf")
 }
 
 [node name="CsDespuesTutorial" type="Control"]
@@ -65,6 +111,7 @@ anchors_preset = 0
 script = ExtResource("1_ls82i")
 
 [node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0, 0, 0, 1)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -93,3 +140,6 @@ text = "Siguiente"
 libraries = {
 &"": SubResource("AnimationLibrary_t5t27")
 }
+
+[node name="disparo" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_y5you")

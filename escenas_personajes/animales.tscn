@@ -1,6 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://bdnx2axq2awm4"]
+[gd_scene load_steps=4 format=3 uid="uid://cvmkwhbovsvq"]
 
-[ext_resource type="SpriteFrames" uid="uid://cl3ajmu68kdam" path="res://sprites/pato1.tres" id="1_fbhg5"]
+[ext_resource type="SpriteFrames" uid="uid://kd65ivyiqlpi" path="res://sprites/pato1.tres" id="1_fbhg5"]
 [ext_resource type="Script" uid="uid://cogsrc5bke2tt" path="res://scripts/animales.gd" id="1_ypy8f"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ypy8f"]

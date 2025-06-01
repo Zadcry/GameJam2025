@@ -2,9 +2,9 @@ extends Control
 
 # Array to store slide data (image paths and text)
 var slides = [
-	{"image": "res://sprites/cs1_1.png", "text": "Enhorabuena"},
+	{"image": "res://sprites/cs1_1.png", "text": "Enhorabuena!"},
 	{"image": "res://sprites/cs1_2.png", "text": "Ha sido seleccionado para participar en la guerra"},
-	{"image": "res://sprites/cs1_3.png", "text": "Reportese inmediatamente en la zona de conflicto"}
+	{"image": "res://sprites/cs1_3.png", "text": "Repórtese inmediatamente en la zona de conflicto"}
 ]
 var current_slide = 0
 var is_animating = false
@@ -33,7 +33,6 @@ func create_label_background():
 func update_slide():
 	if current_slide >= slides.size():
 		get_tree().change_scene_to_file("res://escenas_niveles/nivel1.tscn")
-		queue_free()
 		return
 	
 	# Disable button during transition

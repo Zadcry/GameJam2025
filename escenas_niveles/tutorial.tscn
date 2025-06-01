@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://cli2iwhkxtqws" path="res://scripts/tutorial.gd" id="1_d5d52"]
 [ext_resource type="Texture2D" uid="uid://buwsgay5okdvg" path="res://sprites/TutorialBackGround.png" id="2_lramp"]
 [ext_resource type="PackedScene" uid="uid://cl08e7cajtdbd" path="res://escenas_personajes/personaje_principal.tscn" id="2_ygumn"]
-[ext_resource type="PackedScene" path="res://escenas_personajes/animales.tscn" id="4_867lr"]
-[ext_resource type="PackedScene" path="res://escenas_personajes/animales2.tscn" id="4_h5aod"]
+[ext_resource type="PackedScene" uid="uid://bdnx2axq2awm4" path="res://escenas_personajes/animales.tscn" id="4_867lr"]
+[ext_resource type="PackedScene" uid="uid://durtwkwi0et0b" path="res://escenas_personajes/animales2.tscn" id="4_h5aod"]
 [ext_resource type="Texture2D" uid="uid://do4h2p17be26e" path="res://images/click_izquierdo.png" id="6_jej7j"]
 [ext_resource type="Texture2D" uid="uid://w1aiyg356gdy" path="res://images/click_derecho.png" id="7_gtwow"]
 

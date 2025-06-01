@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bkadux7ti6ka1" path="res://scripts/objetivos.gd" id="1_y8dkt"]
 [ext_resource type="Texture2D" uid="uid://c54vvehrsg0we" path="res://sprites/EnemigoMuerto.png" id="2_enb8y"]
 [ext_resource type="SpriteFrames" uid="uid://cpttu5rwdjpje" path="res://sprites/enemigoFrente.tres" id="3_enb8y"]
-[ext_resource type="SpriteFrames" uid="uid://ncaxkx7xmj62" path="res://sprites/enemigoDisparando.tres" id="4_3s4j2"]
+[ext_resource type="SpriteFrames" uid="uid://dctmxkuso8at7" path="res://sprites/enemigoDisparando.tres" id="4_3s4j2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_enb8y"]
 size = Vector2(16.4662, 25.4635)

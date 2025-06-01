@@ -14,18 +14,17 @@ var impacto_cordura : int
 var is_dead = false
 var is_shooting = false
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if is_shooting:
 		sprite.visible = false
 		shooting_sprite.visible = true
 		shooting_sprite.play()
-		print("disparando")
+
 	if is_dead: 
 		sprite.visible = false
 		shooting_sprite.visible = false
 		dead_sprite.visible = true
 		is_shooting = false
-		print("muerto")
 
 func _ready():
 	randomize()

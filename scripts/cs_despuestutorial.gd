@@ -71,6 +71,6 @@ func _on_next_button_pressed():
 		current_slide += 1
 		update_slide()
 
-func _on_animation_player_animation_finished(anim_name: String):
+func _on_animation_player_animation_finished(_anim_name: String):
 	# Signal connection is handled in update_slide
 	pass

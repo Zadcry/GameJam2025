@@ -10,18 +10,19 @@ const DEAD_TEXTURE = preload("res://sprites/AliadoMuerto.png")
 var impacto_cordura : int
 var is_dead = false
 
+func _process(delta: float) -> void:
+	print(GLOBAL.cordura)
 
 func _ready():
 	randomize()
 	sprite.texture = ALIVE_TEXTURE
-	impacto_cordura = randi_range(5, 10)
+	impacto_cordura = randi_range(7, 11)
 
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and GLOBAL.scoped:
 		if not is_dead:
 			is_dead = true
 			sprite.texture = DEAD_TEXTURE
-			sprite.modulate = Color.RED
 			print("¡Fuego amigo! Cordura bajará: ", impacto_cordura)
 
 			# Buscar al personaje principal

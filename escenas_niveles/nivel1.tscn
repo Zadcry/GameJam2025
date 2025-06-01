@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://b4l2ayw4n5ur7" path="res://scripts/nivel_1.gd" id="1_rlijk"]
 [ext_resource type="PackedScene" uid="uid://cl08e7cajtdbd" path="res://escenas_personajes/personaje_principal.tscn" id="2_wgnbi"]
 [ext_resource type="PackedScene" uid="uid://ccu15pplp2iyp" path="res://escenas_personajes/objetivos_enemigos.tscn" id="3_blb7x"]
-[ext_resource type="PackedScene" uid="uid://dxdr60twkanmy" path="res://escenas_personajes/aliados_inocentes.tscn" id="4_rlijk"]
+[ext_resource type="PackedScene" uid="uid://chry6ty7out0q" path="res://escenas_personajes/aliados_inocentes.tscn" id="4_rlijk"]
 
 [node name="Nivel1" type="Node2D"]
 script = ExtResource("1_rlijk")

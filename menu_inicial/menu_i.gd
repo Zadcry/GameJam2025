@@ -39,6 +39,10 @@ func _input(event):
 			animate_button_appearance(opciones_button, 0.2)
 			animate_button_appearance(salir_button, 0.4)
 			menu_shown = true
+		# Comprobar si el clic está dentro del área del botón jugar
+		elif menu_shown and jugar_button.get_global_rect().has_point(click_position):
+			# Cambiar a la escena del tutorial
+			get_tree().change_scene_to_file("res://escenas_niveles/tutorial.tscn")
 		# Comprobar si el clic está dentro del área del botón salir
 		elif menu_shown and salir_button.get_global_rect().has_point(click_position):
 			# Cerrar el juego
@@ -57,8 +61,3 @@ func animate_button_appearance(button, delay):
 	# Escalar desde pequeño a normal con efecto de rebote
 	tween.parallel().tween_property(button, "scale", Vector2(1.2, 1.2), 0.3).set_delay(delay)
 	tween.tween_property(button, "scale", Vector2(1.0, 1.0), 0.2).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
-
-# Cuando se presiona el botón Jugar
-func _on_jugar_button_pressed():
-	# Cambiar a la escena Nivel 1
-	get_tree().change_scene_to_file("res://Nivel1.tscn")

@@ -3,6 +3,7 @@ extends Node2D
 @onready var personaje : CharacterBody2D = $PersonajePrincipal
 @onready var aliados : Node = $Aliados
 @onready var enemigos : Node = $Enemigos
+@onready var enterTxt : CanvasLayer = $Enter
 
 const enemy_grown_speed : float = 0.015
 const enemy_move_speed : float = 15
@@ -16,11 +17,26 @@ const reached_anim = preload("res://sprites/enemigoDisparando.tres")
 var tiempo_acumulado = 0.0
 var intervalo = 2.0
 var aliadosMuertos = 0
+var enemigosMuertos = 0
+var levelBeaten = false
+
+func _ready() -> void:
+	enterTxt.visible=false
 
 func _process(delta: float) -> void:
+	checkGameOver(delta)
+	
 	for enemigo in enemigos.get_children():
 		if enemigo is Area2D and !enemigo.is_dead:
 			acercar_personaje(enemigo, delta)
+		elif enemigo.is_dead:
+			enemigosMuertos+=1
+	if enemigosMuertos >= 2:
+		levelBeaten = true
+		enterTxt.visible = true
+	else:
+		enemigosMuertos = 0
+	
 
 func acercar_personaje(personaje: Area2D, delta):
 	
@@ -72,12 +88,14 @@ func buscarAliadosVivos(delta):
 			if aliado.is_dead == false:
 					if randf() < 0.2:
 						aliado.is_dead = true
-						aliadosMuertos += 1
-			else:
-				aliadosMuertos +=1
-		if aliadosMuertos == 2:
-			print("todos los aliados muertos")
-			get_tree().change_scene_to_file("res://escenas_niveles/nivel1.tscn")
-			return
-		else:
-			aliadosMuertos = 0
+
+func checkGameOver(delta):
+	for aliado in aliados.get_children():
+		if aliado.is_dead:
+			aliadosMuertos+=1
+	if aliadosMuertos == 2 and !levelBeaten:
+		print("todos los aliados muertos")
+		get_tree().change_scene_to_file("res://escenas_niveles/nivel1.tscn")
+		return
+	else:
+		aliadosMuertos = 0

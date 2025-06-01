@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://b4l2ayw4n5ur7" path="res://scripts/nivel_1.gd" id="1_rlijk"]
 [ext_resource type="PackedScene" uid="uid://cl08e7cajtdbd" path="res://escenas_personajes/personaje_principal.tscn" id="2_wgnbi"]
 [ext_resource type="PackedScene" uid="uid://ccu15pplp2iyp" path="res://escenas_personajes/objetivos_enemigos.tscn" id="3_blb7x"]
-[ext_resource type="PackedScene" uid="uid://dxdr60twkanmy" path="res://escenas_personajes/aliados_inocentes.tscn" id="4_rlijk"]
+[ext_resource type="PackedScene" uid="uid://chry6ty7out0q" path="res://escenas_personajes/aliados_inocentes.tscn" id="4_rlijk"]
 
 [node name="Nivel1" type="Node2D"]
 script = ExtResource("1_rlijk")
@@ -20,24 +20,33 @@ texture = ExtResource("1_j7hmg")
 [node name="Enemigos" type="Node2D" parent="."]
 
 [node name="Objetivos" parent="Enemigos" node_paths=PackedStringArray("personaje_principal") instance=ExtResource("3_blb7x")]
-position = Vector2(380, 147)
+position = Vector2(1136, 168)
 scale = Vector2(0.0993221, 0.0993221)
 personaje_principal = NodePath("../../PersonajePrincipal")
 
 [node name="Objetivos2" parent="Enemigos" node_paths=PackedStringArray("personaje_principal") instance=ExtResource("3_blb7x")]
-position = Vector2(260, 148)
+position = Vector2(123, 143)
 scale = Vector2(0.0966484, 0.0966484)
 personaje_principal = NodePath("../../PersonajePrincipal")
 
 [node name="Objetivos3" parent="Enemigos" node_paths=PackedStringArray("personaje_principal") instance=ExtResource("3_blb7x")]
-position = Vector2(328, 152)
+position = Vector2(363, 166)
 scale = Vector2(0.102738, 0.102738)
 personaje_principal = NodePath("../../PersonajePrincipal")
 
-[node name="AliadosInocentes" parent="." node_paths=PackedStringArray("personaje_principal") instance=ExtResource("4_rlijk")]
+[node name="Aliados" type="Node2D" parent="."]
+
+[node name="AliadosInocentes" parent="Aliados" node_paths=PackedStringArray("personaje_principal") instance=ExtResource("4_rlijk")]
 position = Vector2(786, 414)
-scale = Vector2(-0.474582, 0.456248)
-personaje_principal = NodePath("../PersonajePrincipal")
+rotation = 3.14159
+scale = Vector2(0.474582, -0.456248)
+personaje_principal = NodePath("../../PersonajePrincipal")
+
+[node name="AliadosInocentes2" parent="Aliados" node_paths=PackedStringArray("personaje_principal") instance=ExtResource("4_rlijk")]
+position = Vector2(414, 475)
+rotation = 3.14159
+scale = Vector2(0.474582, -0.456248)
+personaje_principal = NodePath("../../PersonajePrincipal")
 
 [node name="PersonajePrincipal" parent="." instance=ExtResource("2_wgnbi")]
 position = Vector2(640, 360)

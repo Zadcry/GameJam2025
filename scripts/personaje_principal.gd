@@ -60,7 +60,7 @@ func _process(delta):
 		var offset_y = cos(time * frequency * 1.3) * amplitude * 0.7
 		var offset = Vector2(offset_x, offset_y)
 		cursor_follower.global_position = world_mouse_pos + offset
-		print("Cordura entre 95 y 100: ", GLOBAL.cordura)
+		# print("Cordura entre 95 y 100: ", GLOBAL.cordura)
 	elif GLOBAL.cordura > 85.0 and GLOBAL.cordura <= 95:
 		amplitude = 3.5
 		frequency = 2.5

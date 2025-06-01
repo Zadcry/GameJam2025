@@ -1,7 +1,7 @@
 extends Node2D
 
 @onready var personaje : CharacterBody2D = $PersonajePrincipal
-@onready var aliado1 : Area2D = $AliadosInocentes
+@onready var aliados : Node = $Aliados
 @onready var enemigos : Node = $Enemigos
 
 const enemy_grown_speed : float = 0.015
@@ -13,6 +13,10 @@ const MAX_COLLIDER_RADIUS = 64.0
 var position_reached: bool = false
 const reached_anim = preload("res://sprites/enemigoDisparando.tres")
 
+var tiempo_acumulado = 0.0
+var intervalo = 2.0
+var aliadosMuertos = 0
+
 func _process(delta: float) -> void:
 	for enemigo in enemigos.get_children():
 		if enemigo is Area2D and !enemigo.is_dead:
@@ -22,6 +26,7 @@ func acercar_personaje(personaje: Area2D, delta):
 	
 	if position_reached and !personaje.is_dead:
 		personaje.is_shooting = true
+		buscarAliadosVivos(delta)
 	elif personaje.is_dead:
 		personaje.is_shooting = false
 	
@@ -58,3 +63,21 @@ func acercar_personaje(personaje: Area2D, delta):
 				shape.radius = min(new_radius, MAX_COLLIDER_RADIUS)
 			else:
 				shape.radius = MAX_COLLIDER_RADIUS  # Forzar radio exacto al límite
+				
+func buscarAliadosVivos(delta):
+	tiempo_acumulado += delta
+	if tiempo_acumulado >= intervalo:
+		tiempo_acumulado -= intervalo
+		for aliado in aliados.get_children():
+			if aliado.is_dead == false:
+					if randf() < 0.2:
+						aliado.is_dead = true
+						aliadosMuertos += 1
+			else:
+				aliadosMuertos +=1
+		if aliadosMuertos == 2:
+			print("todos los aliados muertos")
+			get_tree().change_scene_to_file("res://escenas_niveles/nivel1.tscn")
+			return
+		else:
+			aliadosMuertos = 0

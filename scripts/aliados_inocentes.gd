@@ -11,7 +11,10 @@ var impacto_cordura : int
 var is_dead = false
 
 func _process(delta: float) -> void:
-	print(GLOBAL.cordura)
+	# print(GLOBAL.cordura)
+	
+	if is_dead: 
+		sprite.texture = DEAD_TEXTURE
 
 func _ready():
 	randomize()

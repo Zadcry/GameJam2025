@@ -6,7 +6,7 @@ extends Area2D
 @export var personaje_principal : CharacterBody2D
 
 const ALIVE_ANIM = preload("res://sprites/enemigoFrente.tres")
-const DEAD_ANIM = preload("res://sprites/enemigo_corre.tres")
+const DEAD_ANIM = preload("res://sprites/EnemigoMuerto.png")
 
 var impacto_cordura : int
 var is_dead = false
@@ -18,12 +18,12 @@ func _ready():
 	dead_sprite.visible = false
 
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and GLOBAL.scoped:
 		if not is_dead:
 			is_dead = true
 			sprite.visible = false
 			dead_sprite.visible = true
-			dead_sprite.play()
+			dead_sprite.texture = DEAD_ANIM
 			dead_sprite.modulate = Color.RED
 			print("¡Disparo! Cordura bajará: ", impacto_cordura)
 

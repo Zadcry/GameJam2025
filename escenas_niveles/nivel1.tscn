@@ -1,12 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://dbj7violkykp"]
+[gd_scene load_steps=12 format=3 uid="uid://dbj7violkykp"]
 
 [ext_resource type="Texture2D" uid="uid://kk4ukow0rjl8" path="res://images/Fondo Cielo Oscuro.png" id="1_j7hmg"]
 [ext_resource type="Script" uid="uid://b4l2ayw4n5ur7" path="res://scripts/nivel_1.gd" id="1_rlijk"]
 [ext_resource type="PackedScene" uid="uid://cl08e7cajtdbd" path="res://escenas_personajes/personaje_principal.tscn" id="2_wgnbi"]
 [ext_resource type="PackedScene" uid="uid://ccu15pplp2iyp" path="res://escenas_personajes/objetivos_enemigos.tscn" id="3_blb7x"]
-[ext_resource type="PackedScene" uid="uid://chry6ty7out0q" path="res://escenas_personajes/aliados_inocentes.tscn" id="4_rlijk"]
+[ext_resource type="PackedScene" uid="uid://dxdr60twkanmy" path="res://escenas_personajes/aliados_inocentes.tscn" id="4_rlijk"]
 [ext_resource type="Texture2D" uid="uid://ctjercrfndl2s" path="res://images/tecla_enter.png" id="6_6w8va"]
-[ext_resource type="SystemFont" uid="uid://du76pnx2dp5wk" path="res://images/fontPixelart.tres" id="6_ar82n"]
+[ext_resource type="SystemFont" path="res://images/fontPixelart.tres" id="6_ar82n"]
+[ext_resource type="AudioStream" uid="uid://bypi44dkf4tug" path="res://audio/sfx/SandStorm.mp3" id="8_qtym6"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_qtym6"]
 font = ExtResource("6_ar82n")
@@ -120,3 +121,7 @@ theme_override_font_sizes/font_size = 100
 text = "Siguiente nivel"
 label_settings = SubResource("LabelSettings_d37jh")
 autowrap_mode = 2
+
+[node name="SandStorm" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_qtym6")
+volume_db = 15.0

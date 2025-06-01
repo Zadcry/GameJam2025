@@ -115,7 +115,7 @@ text = "Misión 2:"
 
 [node name="Label2" type="Label" parent="CanvasLayer/VBoxContainer"]
 layout_mode = 2
-text = "Elimina • Elimina a 4 enemigos
+text = "• Elimina a 4 enemigos
 • Mantén vivo a un aliado
 "
 

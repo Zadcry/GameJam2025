@@ -1,10 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://cl08e7cajtdbd"]
+[gd_scene load_steps=15 format=3 uid="uid://cl08e7cajtdbd"]
 
 [ext_resource type="Script" uid="uid://gj51csrjeae6" path="res://scripts/personaje_principal.gd" id="1_xsu42"]
 [ext_resource type="Texture2D" uid="uid://cyuir1fp3rqy4" path="res://images/puntero.png" id="2_4bc3g"]
 [ext_resource type="AudioStream" uid="uid://dj8cnyrhv0xfq" path="res://audio/sfx/Disparo y Recarga.wav" id="3_1yame"]
 [ext_resource type="AudioStream" uid="uid://d38n3e3kcwf5g" path="res://audio/sfx/Latido.wav" id="4_okhy5"]
 [ext_resource type="AudioStream" uid="uid://b6dq2soejo74o" path="res://audio/sfx/Respiracion.mp3" id="5_hdrhd"]
+[ext_resource type="AudioStream" uid="uid://cxf4ucho864jd" path="res://audio/sfx/dispara.mp3" id="6_vmrvj"]
+[ext_resource type="AudioStream" uid="uid://bwne2e4c1hwjy" path="res://audio/sfx/no_lo_hagas.mp3" id="7_l3g8k"]
+[ext_resource type="AudioStream" uid="uid://dx1vw56bcnxdp" path="res://audio/sfx/que_haces.mp3" id="8_ppmvk"]
+[ext_resource type="AudioStream" uid="uid://db11cfkj1lufw" path="res://audio/sfx/hazlo.mp3" id="9_l3g8k"]
+[ext_resource type="AudioStream" uid="uid://cebplvmgxgdsd" path="res://audio/sfx/acabalo.mp3" id="10_ngkgi"]
+[ext_resource type="AudioStream" uid="uid://dhlrietsu3lv5" path="res://audio/sfx/confia.mp3" id="11_lp0cc"]
+[ext_resource type="AudioStream" uid="uid://b1da2b0j7m076" path="res://audio/sfx/ya_detente.mp3" id="12_23x30"]
+[ext_resource type="AudioStream" uid="uid://tx5xjli0aunk" path="res://audio/sfx/no_eres_capaz.mp3" id="13_ln38m"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_n83jj"]
 
@@ -48,3 +56,34 @@ volume_db = 15.0
 [node name="Respiracion" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_hdrhd")
 volume_db = 8.0
+
+[node name="Voces" type="Node" parent="."]
+
+[node name="dispara" type="AudioStreamPlayer2D" parent="Voces"]
+stream = ExtResource("6_vmrvj")
+
+[node name="no_lo_hagas" type="AudioStreamPlayer2D" parent="Voces"]
+stream = ExtResource("7_l3g8k")
+
+[node name="que_haces" type="AudioStreamPlayer2D" parent="Voces"]
+stream = ExtResource("8_ppmvk")
+
+[node name="hazlo" type="AudioStreamPlayer2D" parent="Voces"]
+stream = ExtResource("9_l3g8k")
+volume_db = 18.0
+
+[node name="acabalo" type="AudioStreamPlayer2D" parent="Voces"]
+stream = ExtResource("10_ngkgi")
+volume_db = 18.0
+
+[node name="confia" type="AudioStreamPlayer2D" parent="Voces"]
+stream = ExtResource("11_lp0cc")
+volume_db = 20.0
+
+[node name="ya_detente" type="AudioStreamPlayer2D" parent="Voces"]
+stream = ExtResource("12_23x30")
+volume_db = 12.0
+
+[node name="no_eres_capaz" type="AudioStreamPlayer2D" parent="Voces"]
+stream = ExtResource("13_ln38m")
+volume_db = 14.0

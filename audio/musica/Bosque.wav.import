@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://cc61a87plfuxh"
-path="res://.godot/imported/Bosque.wav-c910b82dfeb62a361025fbb6fdd24e5b.sample"
+path="res://.godot/imported/Bosque.wav-8451a3ae72ec3133c8550c13c9a8b059.sample"
 
 [deps]
 
-source_file="res://audio/sfx/Bosque.wav"
-dest_files=["res://.godot/imported/Bosque.wav-c910b82dfeb62a361025fbb6fdd24e5b.sample"]
+source_file="res://audio/musica/Bosque.wav"
+dest_files=["res://.godot/imported/Bosque.wav-8451a3ae72ec3133c8550c13c9a8b059.sample"]
 
 [params]
 

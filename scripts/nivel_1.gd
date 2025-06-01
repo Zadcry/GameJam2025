@@ -6,6 +6,7 @@ extends Node2D
 @onready var enterTxt : CanvasLayer = $Enter
 @onready var misionTxt : CanvasLayer = $Mision
 @onready var rifles : AudioStreamPlayer2D = $Rifles
+@onready var sandstorm : AudioStreamPlayer2D = $SandStorm
 @onready var menu_pausa = preload("res://menu_pausa/Menu_P.tscn").instantiate()
 @onready var game_over_menu = preload("res://game_over/gameo.tscn").instantiate()
 
@@ -31,8 +32,7 @@ var intervaloEnemigos = 1.0
 func _ready():
 	enterTxt.visible=false
 	misionTxt.visible=true
-
-	# Agregar el menú de pausa como hijo
+	sandstorm.play()
 	add_child(menu_pausa)
 	menu_pausa.process_mode = Node.PROCESS_MODE_ALWAYS
 	menu_pausa.visible = false

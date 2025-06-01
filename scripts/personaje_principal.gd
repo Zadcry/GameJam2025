@@ -28,9 +28,21 @@ var zoom_normal : Vector2 = Vector2(1, 1)
 var zoom_in : Vector2 = Vector2(2.5, 2.5)
 var ya_sono : bool = false
 var ya_sono_respiracion : bool = false
+var voces = []
+var voces_activadas : bool = false
+var ultima_voz_index := -1
 
 func _ready():
-	# Agregar el menú de pausa como hijo
+	voces = [
+		$Voces/dispara,
+		$Voces/no_lo_hagas,
+		$Voces/que_haces,
+		$Voces/hazlo,
+		$Voces/acabalo,
+		$Voces/confia,
+		$Voces/ya_detente,
+		$Voces/no_eres_capaz
+	]
 	add_child(menu_p)
 	menu_p.process_mode = Node.PROCESS_MODE_ALWAYS
 	menu_p.visible = false
@@ -109,6 +121,9 @@ func _process(delta):
 			latido.stop()
 		cursor_follower.global_position = world_mouse_pos
 	elif GLOBAL.cordura > 35  and GLOBAL.cordura <= 45:
+		if GLOBAL.scoped and not voces_activadas:
+			activar_voces()
+			voces_activadas = true
 		cursor_follower.global_position = world_mouse_pos
 	else:
 		cursor_follower.global_position = world_mouse_pos
@@ -180,3 +195,18 @@ func set_game_over(value: bool):
 
 func hide_cursor():
 	Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
+
+func activar_voces():
+	reproducir_voz_random()
+	
+func reproducir_voz_random():
+	var nueva_index := randi() % voces.size()
+	while nueva_index == ultima_voz_index and voces.size() > 1:
+		nueva_index = randi() % voces.size()
+	ultima_voz_index = nueva_index
+	var voz = voces[nueva_index]
+	if not voz.playing:
+		voz.play()
+	await get_tree().create_timer(randf_range(1.0, 4.0)).timeout
+	if cordura <= 45 and GLOBAL.scoped:
+		reproducir_voz_random()

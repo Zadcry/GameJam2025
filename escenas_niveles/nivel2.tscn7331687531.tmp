@@ -90,7 +90,7 @@ personaje_principal = NodePath("../../PersonajePrincipal")
 [node name="Aliados" type="Node2D" parent="."]
 
 [node name="AliadosInocentes" parent="Aliados" node_paths=PackedStringArray("personaje_principal") instance=ExtResource("4_jksgk")]
-position = Vector2(862, 497)
+position = Vector2(279, -1260)
 rotation = 3.14159
 scale = Vector2(0.474582, -0.456248)
 personaje_principal = NodePath("../../PersonajePrincipal")
@@ -106,6 +106,7 @@ scale = Vector2(0.49664, 0.459009)
 personaje_principal = NodePath("../../PersonajePrincipal")
 
 [node name="PersonajePrincipal" parent="." instance=ExtResource("5_ojyfp")]
+visible = false
 position = Vector2(640, 360)
 
 [node name="Mision" type="CanvasLayer" parent="."]

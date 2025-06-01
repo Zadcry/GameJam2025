@@ -1,4 +1,3 @@
-# Script 2: Personaje Jugador
 extends CharacterBody2D
 
 @onready var camera := $MainCamera
@@ -25,10 +24,16 @@ var zoom_normal := Vector2(1, 1)
 var zoom_in := Vector2(2.5, 2.5)
 
 func _ready():
+	# Agregar el menú de pausa como hijo
 	add_child(menu_p)
 	menu_p.process_mode = Node.PROCESS_MODE_ALWAYS
-	menu_p.player_node = self
 	menu_p.visible = false
+	# Pasar referencia de este nodo al menú de pausa
+	menu_p.player_node = self
+	# Centrar el menú de pausa en la pantalla
+	var viewport_size = get_viewport_rect().size
+	menu_p.position = viewport_size / 2
+	# Inicializar resto de componentes
 	randomize()
 	camera.zoom = zoom_normal
 	camera.position = Vector2.ZERO
@@ -115,6 +120,9 @@ func _process(delta):
 			paused = true
 			get_tree().paused = true
 			menu_p.visible = true
+			# Llamar a la función para mostrar el menú si existe
+			if menu_p.has_method("show_pause_menu"):
+				menu_p.show_pause_menu()
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func _unhandled_input(event):

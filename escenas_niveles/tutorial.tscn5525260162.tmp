@@ -16,34 +16,18 @@ offset_bottom = 40.0
 texture = ExtResource("2_lramp")
 
 [node name="Objetivos" parent="." instance=ExtResource("3_lramp")]
-position = Vector2(129, 281)
-
-[node name="alive_anim" parent="Objetivos" index="2"]
-visible = false
-
-[node name="dead_anim" parent="Objetivos" index="3"]
-visible = false
+position = Vector2(1043, 356)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Objetivos"]
-position = Vector2(-2, -6)
-scale = Vector2(0.329673, 0.329673)
+position = Vector2(-1043, -356)
 sprite_frames = ExtResource("4_824qn")
 
 [node name="Objetivos2" parent="." instance=ExtResource("3_lramp")]
-position = Vector2(354, 531)
-
-[node name="alive_anim" parent="Objetivos2" index="2"]
-visible = false
-
-[node name="dead_anim" parent="Objetivos2" index="3"]
-visible = false
+position = Vector2(196, 283)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Objetivos2"]
-scale = Vector2(0.321913, 0.321913)
 sprite_frames = ExtResource("5_jej7j")
 
 [node name="PersonajePrincipal" parent="." instance=ExtResource("2_ygumn")]
+visible = false
 position = Vector2(641, 373)
-
-[editable path="Objetivos"]
-[editable path="Objetivos2"]

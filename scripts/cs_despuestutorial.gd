@@ -32,7 +32,7 @@ func create_label_background():
 
 func update_slide():
 	if current_slide >= slides.size():
-		# End of cutscene
+		get_tree().change_scene_to_file("res://escenas_niveles/nivel1.tscn")
 		queue_free()
 		return
 	

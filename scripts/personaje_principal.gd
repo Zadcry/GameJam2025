@@ -76,6 +76,7 @@ func _process(delta):
 			randf_range(-shake_strength, shake_strength)
 		)
 		cursor_follower.global_position = world_mouse_pos + offset
+		print("Cordura entre 70 y 85: ", GLOBAL.cordura)
 	elif GLOBAL.cordura > 60 and GLOBAL.cordura <= 70:
 		var shake_strength = 0.8
 		var offset = Vector2(
@@ -83,6 +84,30 @@ func _process(delta):
 			randf_range(-shake_strength, shake_strength)
 		)
 		cursor_follower.global_position = world_mouse_pos + offset
+		print("Cordura entre 60 y 70: ", GLOBAL.cordura)
+	elif GLOBAL.cordura > 45 and GLOBAL.cordura <= 60:
+		var shake_strength = 1
+		var offset = Vector2(
+			randf_range(-shake_strength, shake_strength),
+			randf_range(-shake_strength, shake_strength)
+		)
+		cursor_follower.global_position = world_mouse_pos + offset
+		print("Cordura entre 45 y 60: ", GLOBAL.cordura)
+	elif GLOBAL.cordura > 35 and GLOBAL.cordura <= 45:
+		cursor_follower.global_position = world_mouse_pos
+		print("Cordura entre 35 y 45: ", GLOBAL.cordura)
+	elif GLOBAL.cordura > 20 and GLOBAL.cordura <= 35:
+		cursor_follower.global_position = world_mouse_pos
+		print("Cordura entre 20 y 35: ", GLOBAL.cordura)
+	elif GLOBAL.cordura > 10 and GLOBAL.cordura <= 20:
+		cursor_follower.global_position = world_mouse_pos
+		print("Cordura entre 10 y 20: ", GLOBAL.cordura)
+	elif GLOBAL.cordura >= 1 and GLOBAL.cordura <= 10:
+		cursor_follower.global_position = world_mouse_pos
+		print("Cordura entre 1 y 10: ", GLOBAL.cordura)
+	elif GLOBAL.cordura < 1:
+		cursor_follower.global_position = world_mouse_pos
+		print("Cordura en 0: ", GLOBAL.cordura)
 	else:
 		cursor_follower.global_position = world_mouse_pos
 

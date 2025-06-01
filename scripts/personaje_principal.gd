@@ -1,17 +1,14 @@
-# Script: Personaje Jugador
+# Script 2: Personaje Jugador
 extends CharacterBody2D
 
 @onready var camera := $MainCamera
 @onready var cursor_follower := $CursorFollower
 @onready var flash_rect := $PantallaFlash
 @onready var menu_p = preload("res://menu_pausa/Menu_P.tscn").instantiate()
-@onready var disparo : AudioStreamPlayer = $Disparo
-@onready var latido : AudioStreamPlayer2D = $Latido
-@onready var respiracion : AudioStreamPlayer2D = $Respiracion
 
 const CURSOR_NORMAL = preload("res://images/puntero.png")
 const CURSOR_ZOOMED = preload("res://images/ScopeReescalada.png")
-const FLASH_DURATION := 3.2
+const FLASH_DURATION := 3.0
 
 var cordura : float
 var zoomed := false
@@ -23,23 +20,15 @@ var time := 0.0
 var amplitude : float = 0.0
 var frequency : float = 0.0
 var flash_timer = 0.0
-var flashing : bool = false
-var zoom_normal : Vector2 = Vector2(1, 1)
-var zoom_in : Vector2 = Vector2(2.5, 2.5)
-var ya_sono : bool = false
-var ya_sono_respiracion : bool = false
+var flashing := false
+var zoom_normal := Vector2(1, 1)
+var zoom_in := Vector2(2.5, 2.5)
 
 func _ready():
-	# Agregar el menú de pausa como hijo
 	add_child(menu_p)
 	menu_p.process_mode = Node.PROCESS_MODE_ALWAYS
-	menu_p.visible = false
-	# Pasar referencia de este nodo al menú de pausa
 	menu_p.player_node = self
-	# Centrar el menú de pausa en la pantalla
-	var viewport_size = get_viewport_rect().size
-	menu_p.position = viewport_size / 2
-	# Inicializar resto de componentes
+	menu_p.visible = false
 	randomize()
 	camera.zoom = zoom_normal
 	camera.position = Vector2.ZERO
@@ -69,9 +58,6 @@ func _process(delta):
 
 	# Gestionar movimiento del cursor según cordura
 	if GLOBAL.cordura > 95.0 and GLOBAL.cordura <= 100.0:
-		if not ya_sono_respiracion:
-			respiracion.play()
-			ya_sono_respiracion = true
 		amplitude = 2.5
 		frequency = 1.5
 		var offset_x = sin(time * frequency) * amplitude
@@ -86,11 +72,6 @@ func _process(delta):
 		var offset = Vector2(offset_x, offset_y)
 		cursor_follower.global_position = world_mouse_pos + offset
 	elif GLOBAL.cordura > 70 and GLOBAL.cordura <= 85:
-		if respiracion.playing:
-			respiracion.stop()
-		if not ya_sono:
-			latido.play()
-			ya_sono = true
 		var shake_strength = 0.4
 		var offset = Vector2(
 			randf_range(-shake_strength, shake_strength),
@@ -105,11 +86,12 @@ func _process(delta):
 		)
 		cursor_follower.global_position = world_mouse_pos + offset
 	elif GLOBAL.cordura > 45 and GLOBAL.cordura <= 60:
-		if latido.playing:
-			latido.stop()
-		cursor_follower.global_position = world_mouse_pos
-	elif GLOBAL.cordura > 35  and GLOBAL.cordura <= 45:
-		cursor_follower.global_position = world_mouse_pos
+		var shake_strength = 1
+		var offset = Vector2(
+			randf_range(-shake_strength, shake_strength),
+			randf_range(-shake_strength, shake_strength)
+		)
+		cursor_follower.global_position = world_mouse_pos + offset
 	else:
 		cursor_follower.global_position = world_mouse_pos
 
@@ -133,9 +115,6 @@ func _process(delta):
 			paused = true
 			get_tree().paused = true
 			menu_p.visible = true
-			# Llamar a la función para mostrar el menú si existe
-			if menu_p.has_method("show_pause_menu"):
-				menu_p.show_pause_menu()
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func _unhandled_input(event):
@@ -143,7 +122,6 @@ func _unhandled_input(event):
 	if paused or game_over:
 		return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and GLOBAL.scoped:
-		disparo.play()
 		iniciar_flash()
 
 func follow_cursor():

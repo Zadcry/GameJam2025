@@ -4,8 +4,6 @@ extends Node2D
 @onready var aliados : Node = $Aliados
 @onready var enemigos : Node = $Enemigos
 @onready var enterTxt : CanvasLayer = $Enter
-@onready var misionTxt : CanvasLayer = $Mision
-@onready var rifles : AudioStreamPlayer2D = $Rifles
 @onready var menu_pausa = preload("res://menu_pausa/Menu_P.tscn").instantiate()
 @onready var game_over_menu = preload("res://game_over/gameo.tscn").instantiate()
 
@@ -23,16 +21,10 @@ var aliadosMuertos = 0
 var enemigosMuertos = 0
 var levelBeaten = false
 var game_over = false
-var enemy_states: Dictionary = {}
-
-var tiempoAcomuladoEnemigos = 0.0
-var intervaloEnemigos = 1.0
+var enemy_states: Dictionary = {}  # Store position_reached for each enemy
 
 func _ready():
-	enterTxt.visible=false
-	misionTxt.visible=true
-
-	# Agregar el menú de pausa como hijo
+	enterTxt.visible = false
 	add_child(menu_pausa)
 	menu_pausa.process_mode = Node.PROCESS_MODE_ALWAYS
 	menu_pausa.visible = false
@@ -47,14 +39,8 @@ func _ready():
 	for enemigo in enemigos.get_children():
 		enemy_states[enemigo] = {"position_reached": false}
 
-func _input(event):
-	if event is InputEventKey and event.pressed and event.keycode == KEY_ENTER and levelBeaten:
-		get_tree().change_scene_to_file("res://escenas_niveles/nivel2.tscn")
-		return
-
 func _process(delta: float) -> void:
 	checkGameOver(delta)
-	enemyShootingSFX(delta)
 	
 	if game_over or get_tree().paused:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -91,7 +77,7 @@ func acercar_personaje(personaje: Area2D, delta):
 		enemy_states[personaje] = {"position_reached": false}
 
 	# Debug print to track enemy state
-	#print("Enemy: ", personaje.name, " Pos: ", personaje.position.y, " Reached: ", enemy_states[personaje]["position_reached"], " Scale: ", personaje.scale)
+	print("Enemy: ", personaje.name, " Pos: ", personaje.position.y, " Reached: ", enemy_states[personaje]["position_reached"], " Scale: ", personaje.scale)
 
 	# Movement
 	if personaje.position.y < MAX_POSITION_Y:
@@ -147,8 +133,6 @@ func checkGameOver(delta):
 			aliadosMuertos += 1
 	if aliadosMuertos == 2 and !levelBeaten:
 		print("todos los aliados muertos")
-		misionTxt.visible=false
-		enterTxt.visible=false
 		game_over = true
 		game_over_menu.show_game_over()
 		get_tree().paused = true
@@ -170,11 +154,3 @@ func resume_enemies():
 			else:
 				enemigo.is_shooting = false
 	Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
-
-func enemyShootingSFX(delta):
-	tiempoAcomuladoEnemigos += delta
-	if tiempoAcomuladoEnemigos >= intervaloEnemigos:
-		tiempoAcomuladoEnemigos -= intervaloEnemigos
-		for enemigo in enemigos.get_children():
-			if enemigo.is_shooting:
-				enemigo.shooting_sfx.play()

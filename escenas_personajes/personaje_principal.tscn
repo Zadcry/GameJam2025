@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cl08e7cajtdbd"]
+[gd_scene load_steps=7 format=3 uid="uid://cl08e7cajtdbd"]
 
 [ext_resource type="Script" uid="uid://gj51csrjeae6" path="res://scripts/personaje_principal.gd" id="1_xsu42"]
 [ext_resource type="Texture2D" uid="uid://cyuir1fp3rqy4" path="res://images/puntero.png" id="2_4bc3g"]
 [ext_resource type="AudioStream" uid="uid://dj8cnyrhv0xfq" path="res://audio/sfx/Disparo y Recarga.wav" id="3_1yame"]
+[ext_resource type="AudioStream" uid="uid://d38n3e3kcwf5g" path="res://audio/sfx/Latido.wav" id="4_okhy5"]
+[ext_resource type="AudioStream" uid="uid://b6dq2soejo74o" path="res://audio/sfx/Respiracion.mp3" id="5_hdrhd"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_n83jj"]
 
@@ -38,3 +40,11 @@ scale = Vector2(32.3078, 18.6768)
 
 [node name="Disparo" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_1yame")
+
+[node name="Latido" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_okhy5")
+volume_db = 15.0
+
+[node name="Respiracion" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_hdrhd")
+volume_db = 8.0

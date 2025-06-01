@@ -7,7 +7,7 @@ var is_dead : bool = false
 func _ready() -> void:
 	pass
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if is_dead:
 		Input.mouse_mode = Input.MOUSE_MODE_CONFINED
 		GLOBAL.scoped = false

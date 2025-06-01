@@ -5,6 +5,7 @@ extends Node2D
 @onready var enemigos : Node = $Enemigos
 @onready var enterTxt : CanvasLayer = $Enter
 @onready var misionTxt : CanvasLayer = $Mision
+@onready var rifles : AudioStreamPlayer2D = $Rifles
 @onready var menu_pausa = preload("res://menu_pausa/Menu_P.tscn").instantiate()
 @onready var game_over_menu = preload("res://game_over/gameo.tscn").instantiate()
 
@@ -22,7 +23,7 @@ var aliadosMuertos = 0
 var enemigosMuertos = 0
 var levelBeaten = false
 var game_over = false
-var enemy_states: Dictionary = {}  # Store position_reached for each enemy
+var enemy_states: Dictionary = {}
 
 func _ready():
 	enterTxt.visible=false

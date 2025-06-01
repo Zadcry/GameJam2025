@@ -5,7 +5,9 @@ extends CharacterBody2D
 @onready var cursor_follower := $CursorFollower
 @onready var flash_rect := $PantallaFlash
 @onready var menu_p = preload("res://menu_pausa/Menu_P.tscn").instantiate()
-@onready var disparo := $Disparo
+@onready var disparo : AudioStreamPlayer = $Disparo
+@onready var latido : AudioStreamPlayer2D = $Latido
+@onready var respiracion : AudioStreamPlayer2D = $Respiracion
 
 const CURSOR_NORMAL = preload("res://images/puntero.png")
 const CURSOR_ZOOMED = preload("res://images/ScopeReescalada.png")
@@ -21,9 +23,11 @@ var time := 0.0
 var amplitude : float = 0.0
 var frequency : float = 0.0
 var flash_timer = 0.0
-var flashing := false
-var zoom_normal := Vector2(1, 1)
-var zoom_in := Vector2(2.5, 2.5)
+var flashing : bool = false
+var zoom_normal : Vector2 = Vector2(1, 1)
+var zoom_in : Vector2 = Vector2(2.5, 2.5)
+var ya_sono : bool = false
+var ya_sono_respiracion : bool = false
 
 func _ready():
 	# Agregar el menú de pausa como hijo
@@ -65,6 +69,9 @@ func _process(delta):
 
 	# Gestionar movimiento del cursor según cordura
 	if GLOBAL.cordura > 95.0 and GLOBAL.cordura <= 100.0:
+		if not ya_sono_respiracion:
+			respiracion.play()
+			ya_sono_respiracion = true
 		amplitude = 2.5
 		frequency = 1.5
 		var offset_x = sin(time * frequency) * amplitude
@@ -79,6 +86,11 @@ func _process(delta):
 		var offset = Vector2(offset_x, offset_y)
 		cursor_follower.global_position = world_mouse_pos + offset
 	elif GLOBAL.cordura > 70 and GLOBAL.cordura <= 85:
+		if respiracion.playing:
+			respiracion.stop()
+		if not ya_sono:
+			latido.play()
+			ya_sono = true
 		var shake_strength = 0.4
 		var offset = Vector2(
 			randf_range(-shake_strength, shake_strength),
@@ -93,12 +105,11 @@ func _process(delta):
 		)
 		cursor_follower.global_position = world_mouse_pos + offset
 	elif GLOBAL.cordura > 45 and GLOBAL.cordura <= 60:
-		var shake_strength = 1
-		var offset = Vector2(
-			randf_range(-shake_strength, shake_strength),
-			randf_range(-shake_strength, shake_strength)
-		)
-		cursor_follower.global_position = world_mouse_pos + offset
+		if latido.playing:
+			latido.stop()
+		cursor_follower.global_position = world_mouse_pos
+	elif GLOBAL.cordura > 35  and GLOBAL.cordura <= 45:
+		cursor_follower.global_position = world_mouse_pos
 	else:
 		cursor_follower.global_position = world_mouse_pos
 

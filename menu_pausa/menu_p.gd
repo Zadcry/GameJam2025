@@ -14,6 +14,8 @@ func _ready():
 	mi_boton3.visible = false
 	# Connect the pressed signal of mi_boton2 (Resume) to close the menu
 	mi_boton2.pressed.connect(_on_mi_boton2_pressed)
+	# Connect the pressed signal of mi_boton3 to change scene
+	mi_boton3.pressed.connect(_on_mi_boton3_pressed)
 
 func show_pause_menu() -> void:
 	get_tree().paused = true  # Pause the game
@@ -58,6 +60,24 @@ func _on_mi_boton2_pressed():
 	if mi_boton2.is_pressed():
 		print("¡Botón Resume (TextureButton2) presionado!")
 		exit_pause_menu()
+
+func _on_mi_boton3_pressed():
+	if mi_boton3.is_pressed():
+		print("¡Botón 3 (TextureButton3) presionado! Cambiando a escena...")
+		# Hide buttons and play closing animation
+		mi_boton1.visible = false
+		mi_boton2.visible = false
+		mi_boton3.visible = false
+		var sprite = $AnimatedSprite2D
+		sprite.frame = 23
+		sprite.play("Cerrar")
+		print("Reproduciendo animación Cerrar")
+		# Wait for the animation to finish before changing scene
+		await sprite.animation_finished
+		self.visible = false
+		get_tree().paused = false  # Unpause the game before changing scene
+		# Change to the desired scene (replace "res://path/to/your/scene.tscn" with your scene path)
+		get_tree().change_scene_to_file("res://menu_inicial/menuI.tscn")
 
 func _on_AnimatedSprite2D_animation_finished():
 	if $AnimatedSprite2D.animation == "Abrir":

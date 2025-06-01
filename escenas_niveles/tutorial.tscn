@@ -1,19 +1,85 @@
-[gd_scene load_steps=4 format=3 uid="uid://dyh0y40k7ejc0"]
+[gd_scene load_steps=8 format=3 uid="uid://dyh0y40k7ejc0"]
 
 [ext_resource type="Script" uid="uid://cli2iwhkxtqws" path="res://scripts/tutorial.gd" id="1_d5d52"]
+[ext_resource type="Texture2D" uid="uid://buwsgay5okdvg" path="res://sprites/TutorialBackGround.png" id="2_lramp"]
 [ext_resource type="PackedScene" uid="uid://cl08e7cajtdbd" path="res://escenas_personajes/personaje_principal.tscn" id="2_ygumn"]
-[ext_resource type="PackedScene" uid="uid://ccu15pplp2iyp" path="res://escenas_personajes/objetivos_enemigos.tscn" id="3_lramp"]
+[ext_resource type="PackedScene" uid="uid://bdnx2axq2awm4" path="res://escenas_personajes/animales.tscn" id="4_867lr"]
+[ext_resource type="PackedScene" uid="uid://durtwkwi0et0b" path="res://escenas_personajes/animales2.tscn" id="4_h5aod"]
+[ext_resource type="Texture2D" uid="uid://do4h2p17be26e" path="res://images/click_izquierdo.png" id="6_jej7j"]
+[ext_resource type="Texture2D" uid="uid://w1aiyg356gdy" path="res://images/click_derecho.png" id="7_gtwow"]
 
 [node name="Tutorial" type="Node2D"]
+position = Vector2(294, 12)
 script = ExtResource("1_d5d52")
 
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_lramp")
+
+[node name="Animales" parent="." instance=ExtResource("4_867lr")]
+position = Vector2(64, 243)
+scale = Vector2(0.478988, 0.478988)
+
+[node name="Animales2" parent="." instance=ExtResource("4_h5aod")]
+position = Vector2(70, 507)
+scale = Vector2(0.509239, 0.509239)
+
 [node name="PersonajePrincipal" parent="." instance=ExtResource("2_ygumn")]
+position = Vector2(641, 373)
 
-[node name="Objetivos" parent="." instance=ExtResource("3_lramp")]
-position = Vector2(347, -174)
+[node name="Controles" type="CanvasLayer" parent="."]
 
-[node name="Objetivos2" parent="." instance=ExtResource("3_lramp")]
-position = Vector2(-395, -152)
+[node name="VBoxContainer" type="VBoxContainer" parent="Controles"]
+offset_left = 1042.0
+offset_top = 202.0
+offset_right = 1973.0
+offset_bottom = 1439.0
+scale = Vector2(0.234304, 0.234304)
 
-[node name="Objetivos3" parent="." instance=ExtResource("3_lramp")]
-position = Vector2(349, 142)
+[node name="Label" type="Label" parent="Controles/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 150
+text = "Controles:"
+
+[node name="Disparar" type="HBoxContainer" parent="Controles/VBoxContainer"]
+layout_mode = 2
+
+[node name="click_izquierdo" type="TextureRect" parent="Controles/VBoxContainer/Disparar"]
+layout_mode = 2
+texture = ExtResource("6_jej7j")
+
+[node name="Disparar" type="Label" parent="Controles/VBoxContainer/Disparar"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "Disparar"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Controles/VBoxContainer"]
+layout_mode = 2
+
+[node name="click_derecho" type="TextureRect" parent="Controles/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("7_gtwow")
+
+[node name="Apuntar" type="Label" parent="Controles/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "Apuntar"
+
+[node name="Mision" type="CanvasLayer" parent="."]
+
+[node name="Textos" type="VBoxContainer" parent="Mision"]
+offset_left = 483.0
+offset_top = 18.0
+offset_right = 741.0
+offset_bottom = 126.0
+
+[node name="Tutorial" type="Label" parent="Mision/Textos"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "TUTORIAL"
+
+[node name="A_Hacer" type="Label" parent="Mision/Textos"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Caza tu última ave"

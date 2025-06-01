@@ -86,6 +86,7 @@ func _process(delta):
 
 	if Input.is_action_just_pressed("toggle_zoom") and !paused:
 		zoomed = !zoomed
+		GLOBAL.scoped = zoomed
 		if zoomed:
 			camera.zoom = zoom_in
 			cursor_follower.texture = CURSOR_ZOOMED
@@ -126,7 +127,7 @@ func reducir_cordura(valor: int) -> void:
 func _unhandled_input(event):
 	if paused:
 		return
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and GLOBAL.scoped:
 		iniciar_flash()
 
 func iniciar_flash():

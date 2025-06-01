@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://ncaxkx7xmj62"]
+
+[ext_resource type="Texture2D" uid="uid://dg20qjqg0mfon" path="res://sprites/EnemigoDisparandoAnimado.png" id="1_ejnyw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_we3m6"]
+atlas = ExtResource("1_ejnyw")
+region = Rect2(0, 0, 224, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sngqi"]
+atlas = ExtResource("1_ejnyw")
+region = Rect2(224, 0, 224, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ykx13"]
+atlas = ExtResource("1_ejnyw")
+region = Rect2(448, 0, 224, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yofat"]
+atlas = ExtResource("1_ejnyw")
+region = Rect2(672, 0, 224, 384)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 3.5,
+"texture": SubResource("AtlasTexture_we3m6")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_sngqi")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_ykx13")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_yofat")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

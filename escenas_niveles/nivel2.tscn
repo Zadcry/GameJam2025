@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://bcdve8n4hlghe"]
+
+[ext_resource type="Script" uid="uid://b4l2ayw4n5ur7" path="res://scripts/nivel_1.gd" id="1_nq141"]
+[ext_resource type="Texture2D" uid="uid://kk4ukow0rjl8" path="res://images/Fondo Cielo Oscuro.png" id="2_jksgk"]
+[ext_resource type="PackedScene" uid="uid://cl08e7cajtdbd" path="res://escenas_personajes/personaje_principal.tscn" id="5_ojyfp"]
+
+[node name="Nivel2" type="Node2D"]
+script = ExtResource("1_nq141")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(1, 0.995587)
+mouse_filter = 2
+texture = ExtResource("2_jksgk")
+
+[node name="PersonajePrincipal" parent="." instance=ExtResource("5_ojyfp")]
+position = Vector2(640, 360)

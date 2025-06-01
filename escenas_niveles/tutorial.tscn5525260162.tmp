@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=3 uid="uid://dyh0y40k7ejc0"]
+
+[ext_resource type="Script" uid="uid://cli2iwhkxtqws" path="res://scripts/tutorial.gd" id="1_d5d52"]
+[ext_resource type="Texture2D" uid="uid://buwsgay5okdvg" path="res://sprites/TutorialBackGround.png" id="2_lramp"]
+[ext_resource type="PackedScene" uid="uid://cl08e7cajtdbd" path="res://escenas_personajes/personaje_principal.tscn" id="2_ygumn"]
+[ext_resource type="PackedScene" uid="uid://ccu15pplp2iyp" path="res://escenas_personajes/objetivos_enemigos.tscn" id="3_lramp"]
+[ext_resource type="SpriteFrames" uid="uid://cl3ajmu68kdam" path="res://sprites/pato1.tres" id="4_824qn"]
+[ext_resource type="SpriteFrames" uid="uid://dbau5wwud3yhw" path="res://sprites/pato2.tres" id="5_jej7j"]
+
+[node name="Tutorial" type="Node2D"]
+script = ExtResource("1_d5d52")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_lramp")
+
+[node name="Objetivos" parent="." instance=ExtResource("3_lramp")]
+position = Vector2(1043, 356)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Objetivos"]
+position = Vector2(-1043, -356)
+sprite_frames = ExtResource("4_824qn")
+
+[node name="Objetivos2" parent="." instance=ExtResource("3_lramp")]
+position = Vector2(196, 283)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Objetivos2"]
+sprite_frames = ExtResource("5_jej7j")
+
+[node name="PersonajePrincipal" parent="." instance=ExtResource("2_ygumn")]
+visible = false
+position = Vector2(641, 373)

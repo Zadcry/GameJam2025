@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://durtwkwi0et0b"]
+
+[ext_resource type="Script" uid="uid://bpt0mlxywwhst" path="res://scripts/animales2.gd" id="1_7c40r"]
+[ext_resource type="SpriteFrames" uid="uid://dbau5wwud3yhw" path="res://sprites/pato2.tres" id="2_7c40r"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ypy8f"]
+
+[node name="Animales2" type="Area2D"]
+script = ExtResource("1_7c40r")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.455784, 0.455784)
+sprite_frames = ExtResource("2_7c40r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(10.7815, 10.7815)
+shape = SubResource("CircleShape2D_ypy8f")
+
+[connection signal="input_event" from="." to="." method="_input_event"]

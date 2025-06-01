@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://c584htb5pxrge"]
+
+[ext_resource type="Script" uid="uid://b4l2ayw4n5ur7" path="res://scripts/nivel_1.gd" id="1_5ole8"]
+[ext_resource type="Texture2D" uid="uid://dnia6olidfyjo" path="res://sprites/NivelNocturno.png" id="2_5ole8"]
+[ext_resource type="PackedScene" uid="uid://cl08e7cajtdbd" path="res://escenas_personajes/personaje_principal.tscn" id="3_uuyws"]
+
+[node name="Nivel3" type="Node2D"]
+script = ExtResource("1_5ole8")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(1, 0.995587)
+mouse_filter = 2
+texture = ExtResource("2_5ole8")
+
+[node name="PersonajePrincipal" parent="." instance=ExtResource("3_uuyws")]
+position = Vector2(640, 360)

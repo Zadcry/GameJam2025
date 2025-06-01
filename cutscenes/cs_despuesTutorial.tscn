@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://ct0cnqb068w4g"]
 
 [ext_resource type="Script" uid="uid://dg0h3f5g3603b" path="res://scripts/cs_despuestutorial.gd" id="1_ls82i"]
-[ext_resource type="SystemFont" uid="uid://du76pnx2dp5wk" path="res://images/fontPixelart.tres" id="2_yo8xt"]
+[ext_resource type="SystemFont" path="res://images/fontPixelart.tres" id="2_yo8xt"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_yo8xt"]
 font = ExtResource("2_yo8xt")

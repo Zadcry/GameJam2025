@@ -1,34 +1,40 @@
+# Script: Personaje Jugador
 extends CharacterBody2D
 
 @onready var camera := $MainCamera
 @onready var cursor_follower := $CursorFollower
 @onready var flash_rect := $PantallaFlash
-@onready var filtro := $Filtro
-@onready var disparo := $Disparo
-@onready var menu_p := preload("res://menu_pausa/Menu_P.tscn").instantiate()
+@onready var menu_p = preload("res://menu_pausa/Menu_P.tscn").instantiate()
 
 const CURSOR_NORMAL = preload("res://images/puntero.png")
 const CURSOR_ZOOMED = preload("res://images/ScopeReescalada.png")
-const FLASH_DURATION := 3.2
+const FLASH_DURATION := 3.0
 
 var cordura : float
 var zoomed := false
 var paused := false
+var game_over = false
 var state := true
-var zoom_normal := Vector2(1, 1)
-var zoom_in := Vector2(2.5, 2.5)
 var shake_strenght : float
 var time := 0.0
 var amplitude : float = 0.0
 var frequency : float = 0.0
 var flash_timer = 0.0
 var flashing := false
+var zoom_normal := Vector2(1, 1)
+var zoom_in := Vector2(2.5, 2.5)
 
 func _ready():
+	# Agregar el menú de pausa como hijo
 	add_child(menu_p)
 	menu_p.process_mode = Node.PROCESS_MODE_ALWAYS
-	menu_p.player_node = self  # Asignar este nodo como referencia al menú
-	menu_p.hide()
+	menu_p.visible = false
+	# Pasar referencia de este nodo al menú de pausa
+	menu_p.player_node = self
+	# Centrar el menú de pausa en la pantalla
+	var viewport_size = get_viewport_rect().size
+	menu_p.position = viewport_size / 2
+	# Inicializar resto de componentes
 	randomize()
 	camera.zoom = zoom_normal
 	camera.position = Vector2.ZERO
@@ -37,7 +43,8 @@ func _ready():
 	flash_rect.visible = false
 
 func _process(delta):
-	if paused:
+	# No procesar si está pausado o en game over
+	if paused or game_over:
 		return
 	
 	time += delta
@@ -55,6 +62,7 @@ func _process(delta):
 			flashing = false
 			flash_rect.visible = false
 
+	# Gestionar movimiento del cursor según cordura
 	if GLOBAL.cordura > 95.0 and GLOBAL.cordura <= 100.0:
 		amplitude = 2.5
 		frequency = 1.5
@@ -62,8 +70,6 @@ func _process(delta):
 		var offset_y = cos(time * frequency * 1.3) * amplitude * 0.7
 		var offset = Vector2(offset_x, offset_y)
 		cursor_follower.global_position = world_mouse_pos + offset
-		filtro.modulate = Color(1,1,1,0.1)
-		# print("Cordura entre 95 y 100: ", GLOBAL.cordura)
 	elif GLOBAL.cordura > 85.0 and GLOBAL.cordura <= 95:
 		amplitude = 3.5
 		frequency = 2.5
@@ -71,8 +77,6 @@ func _process(delta):
 		var offset_y = cos(time * frequency * 1.3) * amplitude * 0.7
 		var offset = Vector2(offset_x, offset_y)
 		cursor_follower.global_position = world_mouse_pos + offset
-		print("Cordura entre 85 y 95: ", GLOBAL.cordura)
-		filtro.modulate = Color(1,1,1,0.2)
 	elif GLOBAL.cordura > 70 and GLOBAL.cordura <= 85:
 		var shake_strength = 0.4
 		var offset = Vector2(
@@ -80,8 +84,6 @@ func _process(delta):
 			randf_range(-shake_strength, shake_strength)
 		)
 		cursor_follower.global_position = world_mouse_pos + offset
-		print("Cordura entre 70 y 85: ", GLOBAL.cordura)
-		filtro.modulate = Color(1,1,1,0.3)
 	elif GLOBAL.cordura > 60 and GLOBAL.cordura <= 70:
 		var shake_strength = 0.8
 		var offset = Vector2(
@@ -89,8 +91,6 @@ func _process(delta):
 			randf_range(-shake_strength, shake_strength)
 		)
 		cursor_follower.global_position = world_mouse_pos + offset
-		print("Cordura entre 60 y 70: ", GLOBAL.cordura)
-		filtro.modulate = Color(1,1,1,0.4)
 	elif GLOBAL.cordura > 45 and GLOBAL.cordura <= 60:
 		var shake_strength = 1
 		var offset = Vector2(
@@ -98,31 +98,11 @@ func _process(delta):
 			randf_range(-shake_strength, shake_strength)
 		)
 		cursor_follower.global_position = world_mouse_pos + offset
-		print("Cordura entre 45 y 60: ", GLOBAL.cordura)
-		filtro.modulate = Color(1,1,1,0.5)
-	elif GLOBAL.cordura > 35 and GLOBAL.cordura <= 45:
-		cursor_follower.global_position = world_mouse_pos
-		print("Cordura entre 35 y 45: ", GLOBAL.cordura)
-		filtro.modulate = Color(1,1,1,0.55)
-	elif GLOBAL.cordura > 20 and GLOBAL.cordura <= 35:
-		cursor_follower.global_position = world_mouse_pos
-		print("Cordura entre 20 y 35: ", GLOBAL.cordura)
-		filtro.modulate = Color(1,1,1,0.6)
-	elif GLOBAL.cordura > 10 and GLOBAL.cordura <= 20:
-		cursor_follower.global_position = world_mouse_pos
-		print("Cordura entre 10 y 20: ", GLOBAL.cordura)
-		filtro.modulate = Color(1,1,1,0.6)
-	elif GLOBAL.cordura >= 1 and GLOBAL.cordura <= 10:
-		cursor_follower.global_position = world_mouse_pos
-		print("Cordura entre 1 y 10: ", GLOBAL.cordura)
-		filtro.modulate = Color(1,1,1,0.6)
-	elif GLOBAL.cordura < 1:
-		cursor_follower.global_position = world_mouse_pos
-		print("Cordura en 0: ", GLOBAL.cordura)
 	else:
 		cursor_follower.global_position = world_mouse_pos
 
-	if Input.is_action_just_pressed("toggle_zoom") and !paused:
+	# Manejar zoom
+	if Input.is_action_just_pressed("toggle_zoom") and !paused and !game_over:
 		zoomed = !zoomed
 		GLOBAL.scoped = zoomed
 		if zoomed:
@@ -135,24 +115,30 @@ func _process(delta):
 			cursor_follower.texture = CURSOR_NORMAL
 			cursor_follower.scale = Vector2(0.5, 0.5)
 
-	if Input.is_action_just_pressed("ui_cancel") and !zoomed:
+	# Manejar pausa
+	if Input.is_action_just_pressed("ui_cancel") and !zoomed and !game_over:
 		if !paused:
-			menu_p.show_pause_menu()
-			menu_p.visible = true
-			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-			get_tree().paused = true
 			paused = true
+			get_tree().paused = true
+			menu_p.visible = true
+			# Llamar a la función para mostrar el menú si existe
+			if menu_p.has_method("show_pause_menu"):
+				menu_p.show_pause_menu()
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+func _unhandled_input(event):
+	# No procesar inputs si está pausado o en game over
+	if paused or game_over:
+		return
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and GLOBAL.scoped:
+		iniciar_flash()
 
 func follow_cursor():
 	var mouse_pos = get_viewport().get_mouse_position()
 	var world_mouse_pos = screen_to_world(mouse_pos)
 	var cam_offset = (world_mouse_pos - global_position).clamp(-Vector2(300, 200), Vector2(300, 200))
 	var target_position = global_position + cam_offset
-
-	var lerp_speed = 0.4
-	if zoomed:
-		lerp_speed = 0.05
-
+	var lerp_speed = 0.4 if not zoomed else 0.05
 	camera.global_position = camera.global_position.lerp(target_position, lerp_speed)
 
 func screen_to_world(screen_pos: Vector2) -> Vector2:
@@ -162,18 +148,22 @@ func reducir_cordura(valor: int) -> void:
 	GLOBAL.cordura = max(GLOBAL.cordura - valor, 0)
 	print("Cordura actual:", GLOBAL.cordura)
 
-func _unhandled_input(event):
-	if paused:
-		return
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and GLOBAL.scoped:
-		disparo.play()
-		iniciar_flash()
-
 func iniciar_flash():
 	flash_rect.visible = true
 	flash_rect.modulate.a = 1.0
 	flashing = true
 	flash_timer = 0.0
+
+func set_game_over(value: bool):
+	game_over = value
+	if game_over and zoomed:
+		# Desactivar la mira y volver a la vista general
+		zoomed = false
+		GLOBAL.scoped = false
+		camera.zoom = zoom_normal
+		camera.position = Vector2.ZERO
+		cursor_follower.texture = CURSOR_NORMAL
+		cursor_follower.scale = Vector2(0.5, 0.5)
 
 func hide_cursor():
 	Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN

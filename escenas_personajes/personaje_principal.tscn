@@ -20,6 +20,7 @@ shape = SubResource("SegmentShape2D_n83jj")
 disabled = true
 
 [node name="Filtro" type="ColorRect" parent="."]
+visible = false
 offset_left = -645.0
 offset_top = -385.0
 offset_right = -605.0

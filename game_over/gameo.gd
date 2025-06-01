@@ -18,7 +18,7 @@ func _ready():
 # Función para mostrar el menú de game over con efecto de disolver
 func show_game_over():
 	visible = true  # Hacer visible el Node2D
-	
+	get_tree().paused = true  # Pausar el juego
 	
 	# Crear un Tween para animar el efecto de disolver
 	var tween = create_tween()
@@ -32,14 +32,14 @@ func show_game_over():
 
 # Función para el botón de reintentar
 func _on_retry_button_pressed():
-	
+	get_tree().paused = false  # Reanudar el juego
 	# Cambiar a la escena del nivel actual
 	if current_level_scene != "":
 		get_tree().change_scene_to_file(current_level_scene)
 
 # Función para el botón de salir
 func _on_quit_button_pressed():
-	
+	get_tree().paused = false  # Reanudar antes de salir
 	get_tree().change_scene_to_file("res://menu_inicial/menuI.tscn")  # Ajusta la ruta al menú principal
 
 # Establecer la escena del nivel actual

@@ -17,6 +17,7 @@ const RESET_POSITION_Y = 720
 
 func _ready() -> void:
 	# Initialize animations for pato1
+	GLOBAL.cordura=100
 	var anim1 = pato1.get_node_or_null("AnimatedSprite2D")
 	if anim1:
 		anim1.play()

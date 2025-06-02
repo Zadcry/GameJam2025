@@ -31,6 +31,7 @@ var enemy_states: Dictionary = {}
 
 var tiempoAcomuladoEnemigos = 0.0
 var intervaloEnemigos = 1.0
+var corduraInicial = GLOBAL.cordura
 
 func _ready():
 	sandstorm.play()
@@ -154,6 +155,7 @@ func checkGameOver(delta):
 			aliadosMuertos += 1
 	if aliadosMuertos == 3 and !levelBeaten:
 		print("todos los aliados muertos")
+		GLOBAL.cordura = corduraInicial
 		misionTxt.visible=false
 		enterTxt.visible=false
 		game_over = true

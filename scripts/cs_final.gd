@@ -56,7 +56,7 @@ func update_slide():
 		animation_player.play("fade_out")
 		await animation_player.animation_finished
 		
-		if GLOBAL.cordura > 10:
+		if GLOBAL.cordura > 40:
 			# Load new slide content
 			slide_image.texture = load(slides[current_slide]["image"])
 			slide_text.text = ""

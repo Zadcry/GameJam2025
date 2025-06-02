@@ -31,7 +31,7 @@ func _ready():
 	randomize()
 	sprite.play()
 	dead_sprite.texture = DEAD_ANIM
-	impacto_cordura = randi_range(1, 3)
+	impacto_cordura = randi_range(3,4)
 	dead_sprite.visible = false
 	shooting_sprite.visible = false
 

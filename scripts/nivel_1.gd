@@ -5,7 +5,6 @@ extends Node2D
 @onready var enemigos : Node = $Enemigos
 @onready var enterTxt : CanvasLayer = $Enter
 @onready var misionTxt : CanvasLayer = $Mision
-@onready var rifles : AudioStreamPlayer2D = $Rifles
 @onready var sandstorm : AudioStreamPlayer2D = $SandStorm
 @onready var menu_pausa = preload("res://menu_pausa/Menu_P.tscn").instantiate()
 @onready var game_over_menu = preload("res://game_over/gameo.tscn").instantiate()
@@ -138,10 +137,10 @@ func buscarAliadosVivos(delta):
 		tiempo_acumulado -= intervalo
 		for aliado in aliados.get_children():
 			if not aliado.is_dead:
-				if randf() < 0.2:
+				if randf() < 0.16:
 					aliado.is_dead = true
 
-func checkGameOver(delta):
+func checkGameOver(_delta):
 	for aliado in aliados.get_children():
 		if aliado.is_dead:
 			aliadosMuertos += 1

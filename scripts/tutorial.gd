@@ -5,9 +5,9 @@ extends Node2D
 
 @onready var menu_pausa = preload("res://menu_pausa/Menu_P.tscn").instantiate()
 
-var PATO1_SPEED : float = randf_range(85, 105)
-var PATO2_SPEED_X : float = randf_range(55, 75)
-var PATO2_SPEED_Y : float = randf_range(40, 60)
+var PATO1_SPEED : float = randf_range(140, 180)
+var PATO2_SPEED_X : float = randf_range(110, 150)
+var PATO2_SPEED_Y : float = randf_range(90, 100)
 
 const SCREEN_LIMIT_X = 1280
 const SCREEN_LIMIT_Y = 0

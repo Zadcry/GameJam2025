@@ -3,15 +3,17 @@ extends CharacterBody2D
 
 @onready var camera := $MainCamera
 @onready var cursor_follower := $CursorFollower
-@onready var flash_rect := $PantallaFlash
+@onready var flash_rect : ColorRect = $PantallaFlash
 @onready var menu_p = preload("res://menu_pausa/Menu_P.tscn").instantiate()
 @onready var disparo : AudioStreamPlayer = $Disparo
 @onready var latido : AudioStreamPlayer2D = $Latido
 @onready var respiracion : AudioStreamPlayer2D = $Respiracion
+@onready var filtro : ColorRect = $Filtro
+@onready var voz_inocentes : AudioStreamPlayer2D = $VozInocentes
 
 const CURSOR_NORMAL = preload("res://images/puntero.png")
 const CURSOR_ZOOMED = preload("res://images/ScopeReescalada.png")
-const FLASH_DURATION := 3.2
+const FLASH_DURATION := 3.1
 
 var cordura : float
 var zoomed := false
@@ -31,6 +33,7 @@ var ya_sono_respiracion : bool = false
 var voces = []
 var voces_activadas : bool = false
 var ultima_voz_index := -1
+var inocentes_reproducida : bool = false
 
 func _ready():
 	voces = [
@@ -60,7 +63,6 @@ func _ready():
 	flash_rect.visible = false
 
 func _process(delta):
-	# No procesar si está pausado o en game over
 	if paused or game_over:
 		return
 	
@@ -70,7 +72,10 @@ func _process(delta):
 
 	var mouse_pos = get_viewport().get_mouse_position()
 	var world_mouse_pos = screen_to_world(mouse_pos)
-
+	
+	if GLOBAL.cordura < 90 and GLOBAL.cordura > 80:
+		chequear_voz_inocentes()
+	
 	if flashing:
 		flash_timer += delta
 		var t = flash_timer / FLASH_DURATION
@@ -81,6 +86,7 @@ func _process(delta):
 
 	# Gestionar movimiento del cursor según cordura
 	if GLOBAL.cordura > 95.0 and GLOBAL.cordura <= 100.0:
+		filtro.modulate = Color(1,1,1,0)
 		if not ya_sono_respiracion:
 			respiracion.play()
 			ya_sono_respiracion = true
@@ -91,6 +97,7 @@ func _process(delta):
 		var offset = Vector2(offset_x, offset_y)
 		cursor_follower.global_position = world_mouse_pos + offset
 	elif GLOBAL.cordura > 85.0 and GLOBAL.cordura <= 95:
+		filtro.modulate = Color(1,1,1,0.05)
 		amplitude = 3.5
 		frequency = 2.5
 		var offset_x = sin(time * frequency) * amplitude
@@ -98,6 +105,7 @@ func _process(delta):
 		var offset = Vector2(offset_x, offset_y)
 		cursor_follower.global_position = world_mouse_pos + offset
 	elif GLOBAL.cordura > 70 and GLOBAL.cordura <= 85:
+		filtro.modulate = Color(1,1,1,0.1)
 		if respiracion.playing:
 			respiracion.stop()
 		if not ya_sono:
@@ -110,6 +118,7 @@ func _process(delta):
 		)
 		cursor_follower.global_position = world_mouse_pos + offset
 	elif GLOBAL.cordura > 60 and GLOBAL.cordura <= 70:
+		filtro.modulate = Color(1,1,1,0.15)
 		var shake_strength = 0.8
 		var offset = Vector2(
 			randf_range(-shake_strength, shake_strength),
@@ -117,13 +126,27 @@ func _process(delta):
 		)
 		cursor_follower.global_position = world_mouse_pos + offset
 	elif GLOBAL.cordura > 45 and GLOBAL.cordura <= 60:
+		filtro.modulate = Color(1,1,1,0.2)
 		if latido.playing:
 			latido.stop()
 		cursor_follower.global_position = world_mouse_pos
 	elif GLOBAL.cordura > 35  and GLOBAL.cordura <= 45:
+		filtro.modulate = Color(1,1,1,0.25)
 		if GLOBAL.scoped and not voces_activadas:
 			activar_voces()
 			voces_activadas = true
+		cursor_follower.global_position = world_mouse_pos
+	elif GLOBAL.cordura > 20  and GLOBAL.cordura <= 35:
+		filtro.modulate = Color(1,1,1,0.3)
+		cursor_follower.global_position = world_mouse_pos
+	elif GLOBAL.cordura > 10  and GLOBAL.cordura <= 20:
+		filtro.modulate = Color(1,1,1,0.4)
+		cursor_follower.global_position = world_mouse_pos
+	elif GLOBAL.cordura > 1  and GLOBAL.cordura <= 10:
+		filtro.modulate = Color(1,1,1,0.5)
+		cursor_follower.global_position = world_mouse_pos
+	elif GLOBAL.cordura <= 1:
+		filtro.modulate = Color(1,1,1,0.7)
 		cursor_follower.global_position = world_mouse_pos
 	else:
 		cursor_follower.global_position = world_mouse_pos
@@ -210,3 +233,12 @@ func reproducir_voz_random():
 	await get_tree().create_timer(randf_range(1.0, 4.0)).timeout
 	if cordura <= 45 and GLOBAL.scoped:
 		reproducir_voz_random()
+
+func chequear_voz_inocentes():
+	if not inocentes_reproducida and GLOBAL.cordura < 90 and GLOBAL.cordura > 80:
+		inocentes_reproducida = true
+		esperar_y_reproducir()
+
+func esperar_y_reproducir() -> void:
+	await get_tree().create_timer(2.0).timeout
+	voz_inocentes.play()

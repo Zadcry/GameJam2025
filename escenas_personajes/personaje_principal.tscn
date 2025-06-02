@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cl08e7cajtdbd"]
+[gd_scene load_steps=16 format=3 uid="uid://cl08e7cajtdbd"]
 
 [ext_resource type="Script" uid="uid://gj51csrjeae6" path="res://scripts/personaje_principal.gd" id="1_xsu42"]
 [ext_resource type="Texture2D" uid="uid://cyuir1fp3rqy4" path="res://images/puntero.png" id="2_4bc3g"]
@@ -13,6 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://dhlrietsu3lv5" path="res://audio/sfx/confia.mp3" id="11_lp0cc"]
 [ext_resource type="AudioStream" uid="uid://b1da2b0j7m076" path="res://audio/sfx/ya_detente.mp3" id="12_23x30"]
 [ext_resource type="AudioStream" uid="uid://tx5xjli0aunk" path="res://audio/sfx/no_eres_capaz.mp3" id="13_ln38m"]
+[ext_resource type="AudioStream" uid="uid://d3wpdj3sikls2" path="res://audio/sfx/mata_a_los_inocentes.mp3" id="14_lp0cc"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_n83jj"]
 
@@ -30,16 +31,16 @@ shape = SubResource("SegmentShape2D_n83jj")
 disabled = true
 
 [node name="Filtro" type="ColorRect" parent="."]
-visible = false
 offset_left = -645.0
 offset_top = -385.0
 offset_right = -605.0
 offset_bottom = -345.0
 scale = Vector2(32.5049, 18.6768)
 mouse_filter = 2
-color = Color(0.577008, 0.577008, 0.577008, 1)
+color = Color(0.43134, 0.43134, 0.43134, 1)
 
 [node name="PantallaFlash" type="ColorRect" parent="."]
+visible = false
 offset_left = -645.0
 offset_top = -385.0
 offset_right = -605.0
@@ -87,3 +88,7 @@ volume_db = 12.0
 [node name="no_eres_capaz" type="AudioStreamPlayer2D" parent="Voces"]
 stream = ExtResource("13_ln38m")
 volume_db = 14.0
+
+[node name="VozInocentes" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_lp0cc")
+volume_db = 20.0

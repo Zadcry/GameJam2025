@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://ccu15pplp2iyp" path="res://escenas_personajes/objetivos_enemigos.tscn" id="3_nk3li"]
 [ext_resource type="PackedScene" uid="uid://cl08e7cajtdbd" path="res://escenas_personajes/personaje_principal.tscn" id="3_uuyws"]
 [ext_resource type="PackedScene" uid="uid://dxdr60twkanmy" path="res://escenas_personajes/aliados_inocentes.tscn" id="4_t4ffy"]
-[ext_resource type="SystemFont" uid="uid://du76pnx2dp5wk" path="res://images/fontPixelart.tres" id="6_t4ffy"]
+[ext_resource type="SystemFont" path="res://images/fontPixelart.tres" id="6_t4ffy"]
 [ext_resource type="Texture2D" uid="uid://ctjercrfndl2s" path="res://images/tecla_enter.png" id="7_57aqg"]
 [ext_resource type="AudioStream" uid="uid://bypi44dkf4tug" path="res://audio/sfx/SandStorm.mp3" id="8_57aqg"]
 
@@ -27,7 +27,7 @@ script = ExtResource("1_5ole8")
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_top = -2.0
 offset_right = 1280.0
-offset_bottom = 718.0
+offset_bottom = 725.0
 scale = Vector2(1, 0.995587)
 mouse_filter = 2
 texture = ExtResource("2_5ole8")

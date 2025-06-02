@@ -5,13 +5,13 @@ extends Node2D
 @onready var enemigos : Node = $Enemigos
 @onready var enterTxt : CanvasLayer = $Enter
 @onready var misionTxt : CanvasLayer = $Mision
-@onready var rifles : AudioStreamPlayer2D = $Rifles
 @onready var inocente := $Inocente/Sprite2D
 @onready var inocente2 := $Inocente2/Sprite2D
 @onready var menu_pausa = preload("res://menu_pausa/Menu_P.tscn").instantiate()
 @onready var game_over_menu = preload("res://game_over/gameo.tscn").instantiate()
 @onready var peruano = preload("res://sprites/CivilPeruano.png")
 @onready var dead_peruano = preload("res://sprites/CivilPeruano.png")
+@onready var sandstorm : AudioStreamPlayer2D = $SandStorm
 
 const enemy_grown_speed : float = 0.015
 const enemy_move_speed : float = 15
@@ -33,6 +33,7 @@ var tiempoAcomuladoEnemigos = 0.0
 var intervaloEnemigos = 1.0
 
 func _ready():
+	sandstorm.play()
 	inocente.texture = peruano
 	inocente2.texture = peruano
 	enterTxt.visible=false
@@ -144,7 +145,7 @@ func buscarAliadosVivos(delta):
 		tiempo_acumulado -= intervalo
 		for aliado in aliados.get_children():
 			if not aliado.is_dead:
-				if randf() < 0.2:
+				if randf() < 0.10:
 					aliado.is_dead = true
 
 func checkGameOver(delta):

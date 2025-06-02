@@ -1,12 +1,25 @@
-[gd_scene load_steps=7 format=3 uid="uid://0x52n87phfqv"]
+[gd_scene load_steps=12 format=3 uid="uid://0x52n87phfqv"]
 
 [ext_resource type="Script" uid="uid://xpfmm1bbqv44" path="res://scripts/nivel_3.gd" id="1_5ole8"]
 [ext_resource type="Texture2D" uid="uid://dnia6olidfyjo" path="res://sprites/NivelNocturno.png" id="2_5ole8"]
 [ext_resource type="PackedScene" uid="uid://ccu15pplp2iyp" path="res://escenas_personajes/objetivos_enemigos.tscn" id="3_nk3li"]
 [ext_resource type="PackedScene" uid="uid://cl08e7cajtdbd" path="res://escenas_personajes/personaje_principal.tscn" id="3_uuyws"]
 [ext_resource type="PackedScene" uid="uid://dxdr60twkanmy" path="res://escenas_personajes/aliados_inocentes.tscn" id="4_t4ffy"]
+[ext_resource type="SystemFont" uid="uid://du76pnx2dp5wk" path="res://images/fontPixelart.tres" id="6_t4ffy"]
+[ext_resource type="Texture2D" uid="uid://ctjercrfndl2s" path="res://images/tecla_enter.png" id="7_57aqg"]
+[ext_resource type="AudioStream" uid="uid://bypi44dkf4tug" path="res://audio/sfx/SandStorm.mp3" id="8_57aqg"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_uuyws"]
+[sub_resource type="LabelSettings" id="LabelSettings_nk3li"]
+font = ExtResource("6_t4ffy")
+font_size = 36
+
+[sub_resource type="LabelSettings" id="LabelSettings_t4ffy"]
+font = ExtResource("6_t4ffy")
+font_size = 22
+
+[sub_resource type="LabelSettings" id="LabelSettings_5vphg"]
+font = ExtResource("6_t4ffy")
+font_size = 110
 
 [node name="Nivel3" type="Node2D"]
 script = ExtResource("1_5ole8")
@@ -53,7 +66,7 @@ personaje_principal = NodePath("../../PersonajePrincipal")
 
 [node name="Objetivos7" parent="Enemigos" node_paths=PackedStringArray("personaje_principal") instance=ExtResource("3_nk3li")]
 position = Vector2(886, 201)
-scale = Vector2(0.0763465, 0.114677)
+scale = Vector2(0.096, 0.096)
 personaje_principal = NodePath("../../PersonajePrincipal")
 
 [node name="Objetivos8" parent="Enemigos" node_paths=PackedStringArray("personaje_principal") instance=ExtResource("3_nk3li")]
@@ -61,64 +74,87 @@ position = Vector2(979, 199)
 scale = Vector2(0.102738, 0.102738)
 personaje_principal = NodePath("../../PersonajePrincipal")
 
-[node name="jefe" parent="Enemigos" node_paths=PackedStringArray("personaje_principal") instance=ExtResource("3_nk3li")]
-position = Vector2(478, 154)
-scale = Vector2(0.133125, 0.133125)
+[node name="Aliados" type="Node2D" parent="."]
+
+[node name="AliadosInocentes" parent="Aliados" node_paths=PackedStringArray("personaje_principal") instance=ExtResource("4_t4ffy")]
+position = Vector2(786, 414)
+rotation = 3.14159
+scale = Vector2(0.474582, -0.456248)
 personaje_principal = NodePath("../../PersonajePrincipal")
 
-[node name="CollisionShape2D" parent="Enemigos/jefe" index="1"]
-position = Vector2(-2.86102e-05, -120.819)
-scale = Vector2(4.23051, -4.71613)
-shape = SubResource("CircleShape2D_uuyws")
-
-[node name="alive_anim" parent="Enemigos/jefe" index="2"]
-modulate = Color(0.458467, 0.0392306, 0, 1)
-
-[node name="AliadosInocentes" parent="." node_paths=PackedStringArray("personaje_principal") instance=ExtResource("4_t4ffy")]
-position = Vector2(786, 414)
-scale = Vector2(-0.474582, 0.456248)
-personaje_principal = NodePath("../PersonajePrincipal")
-
-[node name="AliadosInocentes2" parent="." node_paths=PackedStringArray("personaje_principal") instance=ExtResource("4_t4ffy")]
+[node name="AliadosInocentes2" parent="Aliados" node_paths=PackedStringArray("personaje_principal") instance=ExtResource("4_t4ffy")]
 position = Vector2(223, 417)
 scale = Vector2(0.512936, 0.47407)
-personaje_principal = NodePath("../PersonajePrincipal")
+personaje_principal = NodePath("../../PersonajePrincipal")
 
-[node name="AliadosInocentes3" parent="." node_paths=PackedStringArray("personaje_principal") instance=ExtResource("4_t4ffy")]
+[node name="AliadosInocentes3" parent="Aliados" node_paths=PackedStringArray("personaje_principal") instance=ExtResource("4_t4ffy")]
 position = Vector2(511, 387)
 rotation = 3.14159
 scale = Vector2(0.470784, -0.418303)
-personaje_principal = NodePath("../PersonajePrincipal")
+personaje_principal = NodePath("../../PersonajePrincipal")
 
 [node name="PersonajePrincipal" parent="." instance=ExtResource("3_uuyws")]
-position = Vector2(0, -2)
+position = Vector2(644, 374)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="Mision" type="CanvasLayer" parent="."]
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+[node name="ColorRect" type="ColorRect" parent="Mision"]
 offset_left = 523.0
 offset_top = 13.0
-offset_right = 639.0
+offset_right = 672.0
 offset_bottom = 66.0
-scale = Vector2(1.3584, 2.1184)
-color = Color(0, 0, 0, 1)
+scale = Vector2(1.3584, 1.6384)
+color = Color(0, 0, 0, 0.5)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
-offset_left = 529.0
-offset_top = 13.0
-offset_right = 745.0
-offset_bottom = 109.0
+[node name="VBoxContainer" type="VBoxContainer" parent="Mision"]
+offset_left = 533.0
+offset_top = 22.0
+offset_right = 815.0
+offset_bottom = 125.0
 scale = Vector2(0.638498, 0.638498)
 
-[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer"]
+[node name="Label" type="Label" parent="Mision/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Misión 3:"
+label_settings = SubResource("LabelSettings_nk3li")
 
-[node name="Label2" type="Label" parent="CanvasLayer/VBoxContainer"]
+[node name="Label2" type="Label" parent="Mision/VBoxContainer"]
 layout_mode = 2
 text = "• Elimina a 6 enemigos
-• Elimina al jefe
-• Mantén a 2 aliados vivos"
+• Mantén un aliado vivo"
+label_settings = SubResource("LabelSettings_t4ffy")
 
-[editable path="Enemigos/jefe"]
+[node name="Enter" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Enter"]
+offset_left = 1010.0
+offset_top = 611.0
+offset_right = 1050.0
+offset_bottom = 651.0
+scale = Vector2(6.75442, 2.75108)
+color = Color(0, 0, 0, 0.5)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Enter"]
+offset_left = 1017.0
+offset_top = 630.0
+offset_right = 2085.0
+offset_bottom = 990.0
+scale = Vector2(0.236818, 0.236818)
+
+[node name="TextureRect" type="TextureRect" parent="Enter/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("7_57aqg")
+
+[node name="Label" type="Label" parent="Enter/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "Siguiente nivel"
+label_settings = SubResource("LabelSettings_5vphg")
+autowrap_mode = 2
+
+[node name="SandStorm" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(1103.2, 645.867)
+scale = Vector2(0.236818, 0.236818)
+stream = ExtResource("8_57aqg")
+volume_db = 15.0

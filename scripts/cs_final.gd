@@ -6,8 +6,8 @@ var slides = [
 	{"image": "res://sprites/cs2_2.png", "text": ""},
 	{"image": "res://sprites/cs2_3.png", "text": ""},
 	{"image": "res://sprites/cs2_4.png", "text": ""},
-	{"image": "res://sprites/cs2_5a.png", "text": ""},
-	{"image": "res://sprites/cs2_5b.png", "text": ""},
+	{"image": "res://sprites/cs2_5a.png", "text": "Si hubiera quitado mas vidas ¿Me sentiría asi de mal?"},
+	{"image": "res://sprites/cs2_5b.png", "text": "No era necesario pero lo disfruté. Muerte a todos. "},
 ]
 var current_slide = 0
 var is_animating = false
@@ -51,11 +51,14 @@ func update_slide():
 		animation_player.play("start_fade_in")
 		await animation_player.animation_finished
 		
+		start_typewriter_effect(slides[current_slide]["text"])
 	elif current_slide == 4:		
 		
 		animation_player.play("fade_out")
 		await animation_player.animation_finished
 		
+		slide_text.show()
+		GLOBAL.cordura=1
 		if GLOBAL.cordura > 40:
 			# Load new slide content
 			slide_image.texture = load(slides[current_slide]["image"])
@@ -65,6 +68,7 @@ func update_slide():
 			animation_player.play("fade_in")
 			await animation_player.animation_finished
 			
+			start_typewriter_effect(slides[current_slide]["text"])
 			current_slide+=1
 		else: 
 			current_slide+=1
@@ -76,6 +80,8 @@ func update_slide():
 			# Start fade-in animation
 			animation_player.play("fade_in")
 			await animation_player.animation_finished
+			
+			start_typewriter_effect(slides[current_slide]["text"])
 		next_button.text = "Fin"
 	else:
 		# Start fade-out animation
@@ -90,8 +96,7 @@ func update_slide():
 		animation_player.play("fade_in")
 		await animation_player.animation_finished
 		
-	# Start typewriter animation
-	start_typewriter_effect(slides[current_slide]["text"])
+		start_typewriter_effect(slides[current_slide]["text"])
 
 func start_typewriter_effect(full_text: String):
 	var text_length = full_text.length()

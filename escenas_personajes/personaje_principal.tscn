@@ -92,3 +92,9 @@ volume_db = 14.0
 [node name="VozInocentes" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("14_lp0cc")
 volume_db = 20.0
+
+[node name="Label" type="Label" parent="."]
+offset_left = 6.0
+offset_top = 320.0
+offset_right = 430.0
+offset_bottom = 355.0

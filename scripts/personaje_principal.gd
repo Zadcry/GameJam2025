@@ -1,4 +1,3 @@
-# Script: Personaje Jugador
 extends CharacterBody2D
 
 @onready var camera := $MainCamera
@@ -10,6 +9,7 @@ extends CharacterBody2D
 @onready var respiracion : AudioStreamPlayer2D = $Respiracion
 @onready var filtro : ColorRect = $Filtro
 @onready var voz_inocentes : AudioStreamPlayer2D = $VozInocentes
+@onready var pause_label : Label = $Label
 
 const CURSOR_NORMAL = preload("res://images/puntero.png")
 const CURSOR_ZOOMED = preload("res://images/ScopeReescalada.png")
@@ -34,6 +34,8 @@ var voces = []
 var voces_activadas : bool = false
 var ultima_voz_index := -1
 var inocentes_reproducida : bool = false
+var pause_label_timer : float = 0.0
+const PAUSE_LABEL_DURATION := 2.0
 
 func _ready():
 	voces = [
@@ -54,6 +56,13 @@ func _ready():
 	# Centrar el menú de pausa en la pantalla
 	var viewport_size = get_viewport_rect().size
 	menu_p.position = viewport_size / 2
+	# Configurar el label de pausa
+	pause_label.visible = false
+	pause_label.text = "No puedes pausar en este estado"
+	var font = load("res://Fuente/Perfect DOS VGA 437.ttf")
+	pause_label.set("theme_override_fonts/font", font)
+	pause_label.set("theme_override_font_sizes/font_size", 16)
+	pause_label.position = viewport_size / 2 - Vector2(100, 20)
 	# Inicializar resto de componentes
 	randomize()
 	camera.zoom = zoom_normal
@@ -79,7 +88,7 @@ func _process(delta):
 	if flashing:
 		flash_timer += delta
 		var t = flash_timer / FLASH_DURATION
-		flash_rect.modulate.a = lerp(1.0, 0.0, t)
+		flash_rect.modulate.a = lerpf(1.0, 0.0, t)
 		if t >= 1.0:
 			flashing = false
 			flash_rect.visible = false
@@ -151,6 +160,13 @@ func _process(delta):
 	else:
 		cursor_follower.global_position = world_mouse_pos
 
+	# Actualizar temporizador del label de pausa (en caso de que se use en otro contexto)
+	if pause_label.visible:
+		pause_label_timer += delta
+		if pause_label_timer >= PAUSE_LABEL_DURATION:
+			pause_label.visible = false
+			pause_label_timer = 0.0
+
 	# Manejar zoom
 	if Input.is_action_just_pressed("toggle_zoom") and !paused and !game_over:
 		zoomed = !zoomed
@@ -159,14 +175,18 @@ func _process(delta):
 			camera.zoom = zoom_in
 			cursor_follower.texture = CURSOR_ZOOMED
 			cursor_follower.scale = Vector2(0.81, 0.81)
+			# Deshabilitar ui_cancel globalmente
+			GLOBAL.disable_ui_cancel()
 		else:
 			camera.zoom = zoom_normal
 			camera.position = Vector2.ZERO
 			cursor_follower.texture = CURSOR_NORMAL
 			cursor_follower.scale = Vector2(0.5, 0.5)
+			# Rehabilitar ui_cancel globalmente
+			GLOBAL.enable_ui_cancel()
 
 	# Manejar pausa
-	if Input.is_action_just_pressed("ui_cancel") and !zoomed and !game_over:
+	if Input.is_action_just_pressed("ui_cancel") and !game_over and !zoomed:
 		if !paused:
 			paused = true
 			get_tree().paused = true
@@ -175,6 +195,13 @@ func _process(delta):
 			if menu_p.has_method("show_pause_menu"):
 				menu_p.show_pause_menu()
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		else:
+			paused = false
+			get_tree().paused = false
+			menu_p.visible = false
+			Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
+			# Rehabilitar ui_cancel al despausar
+			GLOBAL.enable_ui_cancel()
 
 func _unhandled_input(event):
 	# No procesar inputs si está pausado o en game over
@@ -183,6 +210,17 @@ func _unhandled_input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and GLOBAL.scoped:
 		disparo.play()
 		iniciar_flash()
+
+func disable_ui_cancel():
+	# Deshabilitar la acción ui_cancel eliminando sus eventos
+	GLOBAL.ui_cancel_events = InputMap.action_get_events("ui_cancel").duplicate()
+	InputMap.action_erase_events("ui_cancel")
+
+func enable_ui_cancel():
+	# Restaurar los eventos de ui_cancel
+	InputMap.action_erase_events("ui_cancel")
+	for event in GLOBAL.ui_cancel_events:
+		InputMap.action_add_event("ui_cancel", event)
 
 func follow_cursor():
 	var mouse_pos = get_viewport().get_mouse_position()
@@ -215,6 +253,8 @@ func set_game_over(value: bool):
 		camera.position = Vector2.ZERO
 		cursor_follower.texture = CURSOR_NORMAL
 		cursor_follower.scale = Vector2(0.5, 0.5)
+		# Rehabilitar ui_cancel al entrar en game over
+		GLOBAL.enable_ui_cancel()
 
 func hide_cursor():
 	Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN

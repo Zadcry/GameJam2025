@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bipdu6xrwnhiy"]
+[gd_scene load_steps=12 format=3 uid="uid://bipdu6xrwnhiy"]
 
 [ext_resource type="Texture2D" uid="uid://c66oq4f4uk3jn" path="res://menu_inicial/NivelNocturno.png" id="1_ia1oe"]
 [ext_resource type="Script" uid="uid://omxxxjck4wgf" path="res://menu_inicial/menu_i.gd" id="1_l1i77"]
@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://nd68empplokr" path="res://images/Botones2/opciones_noselected.png" id="6_pnyj8"]
 [ext_resource type="Texture2D" uid="uid://dv5jbifnn2u30" path="res://images/Botones2/opciones_selected.png" id="7_l1i77"]
 [ext_resource type="Texture2D" uid="uid://djcpinqm55nyk" path="res://images/Botones2/Click_Empezar.png" id="8_3mlb7"]
+[ext_resource type="Texture2D" uid="uid://x1n0mj8g48ac" path="res://menu_inicial/Titulo.png" id="10_3mlb7"]
+[ext_resource type="Texture2D" uid="uid://ct3qujnp68fa1" path="res://menu_inicial/Titulo2.png" id="11_7cjoq"]
 
 [node name="MenuI" type="Node2D"]
 script = ExtResource("1_l1i77")
@@ -19,10 +21,10 @@ scale = Vector2(1.14063, 1.25278)
 texture = ExtResource("1_ia1oe")
 
 [node name="click" type="TextureButton" parent="."]
-offset_left = -327.0
-offset_top = -46.0
-offset_right = 1593.0
-offset_bottom = 1034.0
+offset_left = -332.0
+offset_top = -67.0
+offset_right = 1588.0
+offset_bottom = 1013.0
 texture_normal = ExtResource("8_3mlb7")
 
 [node name="Salir" type="TextureButton" parent="."]
@@ -54,3 +56,14 @@ texture_normal = ExtResource("6_pnyj8")
 texture_hover = ExtResource("7_l1i77")
 ignore_texture_size = true
 stretch_mode = 3
+
+[node name="Titulo" type="Sprite2D" parent="."]
+position = Vector2(634, 641)
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("10_3mlb7")
+
+[node name="Titulo2" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(648.5, 411)
+scale = Vector2(1.08672, 1)
+texture = ExtResource("11_7cjoq")

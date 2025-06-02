@@ -96,6 +96,26 @@ func _process(delta):
 	if GLOBAL.cordura < 90 and GLOBAL.cordura > 80:
 		chequear_voz_inocentes()
 	
+	if GLOBAL.cordura <= 99 and GLOBAL.cordura > 75:
+		if not musica1_played:
+			musica1.play()
+			musica1_played = true
+	elif GLOBAL.cordura <= 75 and GLOBAL.cordura > 50:
+		musica1.stop()
+		if not musica2_played:
+			musica2.play()
+			musica2_played = true
+	elif GLOBAL.cordura <= 50 and GLOBAL.cordura > 25:
+		musica2.stop()
+		if not musica3_played:
+			musica3.play()
+			musica3_played = true
+	elif GLOBAL.cordura <= 25:
+		musica3.stop()
+		if not musica4_played:
+			musica4.play()
+			musica4_played = true
+	
 	if flashing:
 		flash_timer += delta
 		var t = flash_timer / FLASH_DURATION
@@ -151,37 +171,21 @@ func _process(delta):
 			latido.stop()
 		cursor_follower.global_position = world_mouse_pos
 	elif GLOBAL.cordura > 35  and GLOBAL.cordura <= 45:
-		if not musica1_played:
-			musica1.play()
-			musica1_played = true
 		filtro.modulate = Color(1,1,1,0.25)
 		if GLOBAL.scoped and not voces_activadas:
 			activar_voces()
 			voces_activadas = true
 		cursor_follower.global_position = world_mouse_pos
 	elif GLOBAL.cordura > 20  and GLOBAL.cordura <= 35:
-		musica1.stop()
-		if not musica2_played:
-			musica2.play()
-			musica2_played = true
 		filtro.modulate = Color(1,1,1,0.3)
 		cursor_follower.global_position = world_mouse_pos
 	elif GLOBAL.cordura > 10  and GLOBAL.cordura <= 20:
-		musica2.stop()
-		if not musica3_played:
-			musica3.play()
-			musica3_played = true
 		filtro.modulate = Color(1,1,1,0.4)
 		cursor_follower.global_position = world_mouse_pos
 	elif GLOBAL.cordura > 1  and GLOBAL.cordura <= 10:
-		musica3.stop()
-		if not musica4_played:
-			musica4.play()
-			musica4_played = true
 		filtro.modulate = Color(1,1,1,0.5)
 		cursor_follower.global_position = world_mouse_pos
 	elif GLOBAL.cordura <= 1:
-		musica4.play()
 		filtro.modulate = Color(1,1,1,0.7)
 		cursor_follower.global_position = world_mouse_pos
 	else:

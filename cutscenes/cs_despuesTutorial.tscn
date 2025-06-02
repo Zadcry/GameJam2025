@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://ct0cnqb068w4g"]
+[gd_scene load_steps=12 format=3 uid="uid://ct0cnqb068w4g"]
 
 [ext_resource type="Script" uid="uid://dg0h3f5g3603b" path="res://scripts/cs_despuestutorial.gd" id="1_ls82i"]
-[ext_resource type="SystemFont" uid="uid://du76pnx2dp5wk" path="res://images/fontPixelart.tres" id="2_yo8xt"]
+[ext_resource type="SystemFont" path="res://images/fontPixelart.tres" id="2_yo8xt"]
 [ext_resource type="AudioStream" uid="uid://cd48vq7afrnf0" path="res://audio/sfx/Disparo.wav" id="3_y5you"]
+[ext_resource type="AudioStream" uid="uid://dwm6owk0eb4vx" path="res://audio/musica/musica1.mp3" id="4_t5t27"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_yo8xt"]
 font = ExtResource("2_yo8xt")
@@ -143,3 +144,6 @@ libraries = {
 
 [node name="disparo" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_y5you")
+
+[node name="musica" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_t5t27")

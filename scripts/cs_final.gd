@@ -6,7 +6,7 @@ var slides = [
 	{"image": "res://sprites/cs2_2.png", "text": ""},
 	{"image": "res://sprites/cs2_3.png", "text": ""},
 	{"image": "res://sprites/cs2_4.png", "text": ""},
-	{"image": "res://sprites/cs2_5a.png", "text": "Si hubiera quitado mas vidas ¿Me sentiría asi de mal?"},
+	{"image": "res://sprites/cs2_5a.png", "text": "Si hubiera quitado más vidas ¿Me sentiría asi de mal?"},
 	{"image": "res://sprites/cs2_5b.png", "text": "No era necesario pero lo disfruté. Muerte a todos. "},
 ]
 var current_slide = 0
@@ -18,6 +18,7 @@ var typewriter_speed = 0.05  # Time per character in seconds
 @onready var slide_text = $Label
 @onready var next_button = $Button
 @onready var animation_player = $AnimationPlayer
+@onready var musica : AudioStreamPlayer2D = $musica
 
 func _ready():
 	slide_text.hide()
@@ -27,6 +28,7 @@ func _ready():
 	slide_text.add_theme_stylebox_override("normal", create_label_background())
 	# Load the first slide
 	update_slide()
+	musica.play()
 
 func create_label_background():
 	var stylebox = StyleBoxFlat.new()
@@ -58,8 +60,7 @@ func update_slide():
 		await animation_player.animation_finished
 		
 		slide_text.show()
-		GLOBAL.cordura=1
-		if GLOBAL.cordura > 40:
+		if GLOBAL.cordura > 35:
 			# Load new slide content
 			slide_image.texture = load(slides[current_slide]["image"])
 			slide_text.text = ""

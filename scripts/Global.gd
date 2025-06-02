@@ -1,6 +1,6 @@
 extends Node
 
-var cordura := 40.0
+var cordura := 100
 var scoped := false
 
 var ui_cancel_events = []

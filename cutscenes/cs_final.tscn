@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://c2uqpmkm6d5lb"]
+[gd_scene load_steps=11 format=3 uid="uid://c2uqpmkm6d5lb"]
 
 [ext_resource type="Script" uid="uid://dw58wtbgwc36r" path="res://scripts/cs_final.gd" id="1_ye3lc"]
 [ext_resource type="SystemFont" path="res://images/fontPixelart.tres" id="2_5r52j"]
+[ext_resource type="AudioStream" uid="uid://dknj8pbbrkbxg" path="res://audio/musica/musica4.mp3" id="3_ye3lc"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_yo8xt"]
 font = ExtResource("2_5r52j")
@@ -139,3 +140,6 @@ text = "Siguiente"
 libraries = {
 &"": SubResource("AnimationLibrary_t5t27")
 }
+
+[node name="musica" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_ye3lc")

@@ -30,6 +30,7 @@ var intervaloEnemigos = 1.0
 var corduraInicial = GLOBAL.cordura
 
 func _ready():
+	GLOBAL.cordura = 99
 	enterTxt.visible=false
 	misionTxt.visible=true
 	sandstorm.play()

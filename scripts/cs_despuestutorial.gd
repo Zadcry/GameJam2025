@@ -16,6 +16,7 @@ var typewriter_speed = 0.05  # Time per character in seconds
 @onready var next_button = $Button
 @onready var animation_player = $AnimationPlayer
 @onready var disparo = $disparo
+@onready var musica : AudioStreamPlayer2D = $musica
 
 func _ready():
 	disparo.play()
@@ -25,6 +26,7 @@ func _ready():
 	slide_text.add_theme_stylebox_override("normal", create_label_background())
 	# Load the first slide
 	update_slide()
+	musica.play()
 
 func create_label_background():
 	var stylebox = StyleBoxFlat.new()

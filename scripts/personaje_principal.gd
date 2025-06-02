@@ -10,6 +10,10 @@ extends CharacterBody2D
 @onready var filtro : ColorRect = $Filtro
 @onready var voz_inocentes : AudioStreamPlayer2D = $VozInocentes
 @onready var pause_label : Label = $Label
+@onready var musica1 : AudioStreamPlayer2D = $Musica1
+@onready var musica2 : AudioStreamPlayer2D = $Musica2
+@onready var musica3 : AudioStreamPlayer2D = $Musica3
+@onready var musica4 : AudioStreamPlayer2D = $Musica4
 
 const CURSOR_NORMAL = preload("res://images/puntero.png")
 const CURSOR_ZOOMED = preload("res://images/ScopeReescalada.png")
@@ -35,6 +39,10 @@ var voces_activadas : bool = false
 var ultima_voz_index := -1
 var inocentes_reproducida : bool = false
 var pause_label_timer : float = 0.0
+var musica1_played : bool = false
+var musica2_played : bool = false
+var musica3_played : bool = false
+var musica4_played : bool = false
 const PAUSE_LABEL_DURATION := 2.0
 
 func _ready():
@@ -143,21 +151,37 @@ func _process(delta):
 			latido.stop()
 		cursor_follower.global_position = world_mouse_pos
 	elif GLOBAL.cordura > 35  and GLOBAL.cordura <= 45:
+		if not musica1_played:
+			musica1.play()
+			musica1_played = true
 		filtro.modulate = Color(1,1,1,0.25)
 		if GLOBAL.scoped and not voces_activadas:
 			activar_voces()
 			voces_activadas = true
 		cursor_follower.global_position = world_mouse_pos
 	elif GLOBAL.cordura > 20  and GLOBAL.cordura <= 35:
+		musica1.stop()
+		if not musica2_played:
+			musica2.play()
+			musica2_played = true
 		filtro.modulate = Color(1,1,1,0.3)
 		cursor_follower.global_position = world_mouse_pos
 	elif GLOBAL.cordura > 10  and GLOBAL.cordura <= 20:
+		musica2.stop()
+		if not musica3_played:
+			musica3.play()
+			musica3_played = true
 		filtro.modulate = Color(1,1,1,0.4)
 		cursor_follower.global_position = world_mouse_pos
 	elif GLOBAL.cordura > 1  and GLOBAL.cordura <= 10:
+		musica3.stop()
+		if not musica4_played:
+			musica4.play()
+			musica4_played = true
 		filtro.modulate = Color(1,1,1,0.5)
 		cursor_follower.global_position = world_mouse_pos
 	elif GLOBAL.cordura <= 1:
+		musica4.play()
 		filtro.modulate = Color(1,1,1,0.7)
 		cursor_follower.global_position = world_mouse_pos
 	else:

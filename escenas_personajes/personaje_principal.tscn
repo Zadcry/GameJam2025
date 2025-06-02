@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cl08e7cajtdbd"]
+[gd_scene load_steps=20 format=3 uid="uid://cl08e7cajtdbd"]
 
 [ext_resource type="Script" uid="uid://gj51csrjeae6" path="res://scripts/personaje_principal.gd" id="1_xsu42"]
 [ext_resource type="Texture2D" uid="uid://cyuir1fp3rqy4" path="res://images/puntero.png" id="2_4bc3g"]
@@ -14,6 +14,10 @@
 [ext_resource type="AudioStream" uid="uid://b1da2b0j7m076" path="res://audio/sfx/ya_detente.mp3" id="12_23x30"]
 [ext_resource type="AudioStream" uid="uid://tx5xjli0aunk" path="res://audio/sfx/no_eres_capaz.mp3" id="13_ln38m"]
 [ext_resource type="AudioStream" uid="uid://d3wpdj3sikls2" path="res://audio/sfx/mata_a_los_inocentes.mp3" id="14_lp0cc"]
+[ext_resource type="AudioStream" uid="uid://dwm6owk0eb4vx" path="res://audio/musica/musica1.mp3" id="15_6fwh3"]
+[ext_resource type="AudioStream" uid="uid://i03me5h8ta15" path="res://audio/musica/musica2.mp3" id="16_fdkj1"]
+[ext_resource type="AudioStream" uid="uid://dl1e2ldj73fjn" path="res://audio/musica/musica3.mp3" id="17_ptuby"]
+[ext_resource type="AudioStream" uid="uid://dknj8pbbrkbxg" path="res://audio/musica/musica4.mp3" id="18_ooxad"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_n83jj"]
 
@@ -62,12 +66,15 @@ volume_db = 8.0
 
 [node name="dispara" type="AudioStreamPlayer2D" parent="Voces"]
 stream = ExtResource("6_vmrvj")
+volume_db = 15.0
 
 [node name="no_lo_hagas" type="AudioStreamPlayer2D" parent="Voces"]
 stream = ExtResource("7_l3g8k")
+volume_db = 15.0
 
 [node name="que_haces" type="AudioStreamPlayer2D" parent="Voces"]
 stream = ExtResource("8_ppmvk")
+volume_db = 15.0
 
 [node name="hazlo" type="AudioStreamPlayer2D" parent="Voces"]
 stream = ExtResource("9_l3g8k")
@@ -79,15 +86,15 @@ volume_db = 18.0
 
 [node name="confia" type="AudioStreamPlayer2D" parent="Voces"]
 stream = ExtResource("11_lp0cc")
-volume_db = 20.0
+volume_db = 24.0
 
 [node name="ya_detente" type="AudioStreamPlayer2D" parent="Voces"]
 stream = ExtResource("12_23x30")
-volume_db = 12.0
+volume_db = 15.0
 
 [node name="no_eres_capaz" type="AudioStreamPlayer2D" parent="Voces"]
 stream = ExtResource("13_ln38m")
-volume_db = 14.0
+volume_db = 16.0
 
 [node name="VozInocentes" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("14_lp0cc")
@@ -98,3 +105,20 @@ offset_left = 6.0
 offset_top = 320.0
 offset_right = 430.0
 offset_bottom = 355.0
+
+[node name="Musica1" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("15_6fwh3")
+volume_db = -5.0
+parameters/looping = false
+
+[node name="Musica2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("16_fdkj1")
+volume_db = -5.0
+
+[node name="Musica3" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("17_ptuby")
+volume_db = -5.0
+
+[node name="Musica4" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("18_ooxad")
+volume_db = -5.0

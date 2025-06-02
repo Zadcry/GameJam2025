@@ -11,6 +11,9 @@ var impacto_cordura : int
 var is_dead = false
 var alucinando = false
 
+func _process(delta: float) -> void:
+	if is_dead:sprite.texture = DEAD_TEXTURE
+
 func _ready():
 	randomize()
 	sprite.texture = ALIVE_TEXTURE
@@ -21,6 +24,7 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and GLOBAL.scoped:
 		if not is_dead:
 			is_dead = true
+			alucinando = false
 			sprite.texture = DEAD_TEXTURE
 			print("¡Fuego amigo! Cordura bajará: ", impacto_cordura)
 
@@ -72,6 +76,16 @@ func alucinar():
 	alucinando = true
 	var textura_original = sprite.texture
 	sprite.texture = ENEMY_TEXTURE
+
 	await get_tree().create_timer(1.2).timeout
-	sprite.texture = textura_original
+
+	# Espera mínima para asegurar que is_dead se haya actualizado correctamente
+	await get_tree().process_frame
+
+	# Verifica estado de muerte dos veces seguidas para asegurarse
+	if is_dead:
+		sprite.texture = DEAD_TEXTURE
+	else:
+		sprite.texture = textura_original
+
 	alucinando = false

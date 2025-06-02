@@ -32,6 +32,7 @@ func _ready():
 	fade_rect.modulate.a = 0.0
 
 func show_pause_menu() -> void:
+	print("show_pause_menu called")
 	self.visible = true
 	if sprite:
 		sprite.frame = 0
@@ -41,8 +42,11 @@ func show_pause_menu() -> void:
 	mi_boton2.visible = true
 	mi_boton3.visible = true
 	get_tree().paused = true
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	print("Pause menu shown, mouse mode: ", Input.get_mouse_mode())
 
 func exit_pause_menu() -> void:
+	print("exit_pause_menu called")
 	mi_boton1.visible = false
 	mi_boton2.visible = false
 	mi_boton3.visible = false
@@ -56,24 +60,34 @@ func exit_pause_menu() -> void:
 	get_tree().paused = false
 
 	if player_node:
-		player_node.paused = false
+		player_node.paused = false  # Update player_node's paused state if exists
+		print("Calling hide_cursor on player_node")
 		player_node.hide_cursor()
+	else:
+		print("Warning: player_node is null, hiding cursor directly")
+		Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED_HIDDEN)
 
 	var main_scene = get_tree().current_scene
 	if main_scene and main_scene.has_method("resume_enemies"):
+		print("Calling resume_enemies on main scene")
 		main_scene.resume_enemies()
+	else:
+		print("Warning: main_scene or resume_enemies method not found")
 
 func _input(event):
 	if event.is_action_pressed("ui_accept") and self.visible:
+		print("ui_accept pressed in pause menu, exiting")
 		exit_pause_menu()
 
 func _on_mi_boton1_pressed():
 	_show_opciones_scene()
 
 func _on_mi_boton2_pressed():
+	print("Button 2 pressed, exiting pause menu")
 	exit_pause_menu()
 
 func _on_mi_boton3_pressed():
+	print("Button 3 pressed, fading to main menu")
 	# Ocultar botones
 	mi_boton1.visible = false
 	mi_boton2.visible = false
@@ -105,19 +119,21 @@ func _on_mi_boton3_pressed():
 	get_tree().paused = false
 
 	# Cambiar de escena
+	print("Changing scene to menu_inicial")
 	get_tree().change_scene_to_file("res://menu_inicial/menuI.tscn")
-
 
 func _show_opciones_scene():
 	if opciones_scene_instance != null:
 		return
 
 	if not ResourceLoader.exists(OPCIONES_SCENE_PATH):
+		print("Error: Opciones scene not found at ", OPCIONES_SCENE_PATH)
 		return
 
 	var opciones_scene = load(OPCIONES_SCENE_PATH)
 	opciones_scene_instance = opciones_scene.instantiate()
 	if opciones_scene_instance == null:
+		print("Error: Failed to instantiate opciones scene")
 		return
 
 	opciones_layer.add_child(opciones_scene_instance)
@@ -128,8 +144,8 @@ func _show_opciones_scene():
 
 	if opciones_scene_instance is Control:
 		opciones_scene_instance.set_anchors_and_margins_preset(Control.PRESET_CENTER)
-		var base_pos = opciones_scene_instance.rect_position
-		opciones_scene_instance.rect_position = base_pos + Vector2(-100, 0)
+		var base_pos = opciones_scene_instance.position
+		opciones_scene_instance.position = base_pos + Vector2(-100, 0)
 	else:
 		opciones_scene_instance.position = viewport_size / 2 + Vector2(-600, -300)
 

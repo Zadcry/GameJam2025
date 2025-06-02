@@ -21,10 +21,10 @@ scale = Vector2(1.14063, 1.25278)
 texture = ExtResource("1_ia1oe")
 
 [node name="click" type="TextureButton" parent="."]
-offset_left = -332.0
-offset_top = -67.0
-offset_right = 1588.0
-offset_bottom = 1013.0
+offset_left = -314.0
+offset_top = -63.0
+offset_right = 1606.0
+offset_bottom = 1017.0
 texture_normal = ExtResource("8_3mlb7")
 
 [node name="Salir" type="TextureButton" parent="."]

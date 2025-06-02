@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://fl2ceyhfqhkn"]
+[gd_scene load_steps=8 format=3 uid="uid://fl2ceyhfqhkn"]
 
 [ext_resource type="Script" uid="uid://dwuac8sl1qcco" path="res://menu_opciones/menuop.gd" id="1_3pjwr"]
 [ext_resource type="Texture2D" uid="uid://bx5o12bntpwek" path="res://images/Opciones.png" id="1_y2sal"]
 [ext_resource type="Texture2D" uid="uid://ct4skhocd742o" path="res://images/Botones3/Salir_unselected.png" id="2_n41aj"]
 [ext_resource type="Texture2D" uid="uid://cyhxyhnsao0le" path="res://images/Botones3/Salir_selected.png" id="3_775hs"]
+[ext_resource type="Texture2D" uid="uid://cbmse43ssxvd3" path="res://menu_opciones/Opciones.png" id="3_n83e4"]
 [ext_resource type="Texture2D" uid="uid://ces6wc1w3gvh6" path="res://images/Botones3/p_0.png" id="4_775hs"]
 [ext_resource type="Texture2D" uid="uid://ct385vdkr36ko" path="res://images/Botones3/p_100.png" id="5_3pjwr"]
 
@@ -11,64 +12,61 @@
 script = ExtResource("1_3pjwr")
 
 [node name="Opciones" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(633, 392)
 scale = Vector2(0.667448, 0.666204)
 texture = ExtResource("1_y2sal")
 
+[node name="Opciones2" type="Sprite2D" parent="."]
+position = Vector2(638.82, 358.82)
+scale = Vector2(0.665812, 0.666333)
+texture = ExtResource("3_n83e4")
+
 [node name="Salir" type="TextureButton" parent="."]
-offset_left = 768.0
-offset_top = 572.0
-offset_right = 1034.0
-offset_bottom = 650.0
+offset_left = 749.0
+offset_top = 537.0
+offset_right = 1015.0
+offset_bottom = 615.0
 texture_normal = ExtResource("2_n41aj")
 texture_hover = ExtResource("3_775hs")
 ignore_texture_size = true
 stretch_mode = 3
 
-[node name="sfx" type="TextureProgressBar" parent="."]
-offset_left = 726.0
-offset_top = 161.0
-offset_right = 989.0
-offset_bottom = 201.0
-value = 50.0
-texture_under = ExtResource("4_775hs")
-texture_progress = ExtResource("5_3pjwr")
-
 [node name="musica" type="TextureProgressBar" parent="."]
-offset_left = 730.0
-offset_top = 258.0
-offset_right = 993.0
-offset_bottom = 298.0
+offset_left = 743.0
+offset_top = 226.0
+offset_right = 1006.0
+offset_bottom = 266.0
 value = 50.0
 texture_under = ExtResource("4_775hs")
 texture_progress = ExtResource("5_3pjwr")
 
 [node name="Label" type="Label" parent="."]
-offset_left = 741.0
-offset_top = 354.0
-offset_right = 989.0
-offset_bottom = 405.0
+offset_left = 748.0
+offset_top = 322.0
+offset_right = 996.0
+offset_bottom = 373.0
 
 [node name="Label2" type="Label" parent="."]
-offset_left = 507.0
-offset_top = 477.0
-offset_right = 755.0
-offset_bottom = 528.0
+offset_left = 488.0
+offset_top = 442.0
+offset_right = 736.0
+offset_bottom = 493.0
 text = "
 c"
 
 [node name="Label4" type="Label" parent="."]
-offset_left = 758.0
-offset_top = 478.0
-offset_right = 816.0
-offset_bottom = 529.0
+offset_left = 739.0
+offset_top = 443.0
+offset_right = 797.0
+offset_bottom = 494.0
 text = "
 c"
 
 [node name="Label3" type="Label" parent="."]
-offset_left = 443.0
-offset_top = 477.0
-offset_right = 501.0
-offset_bottom = 528.0
+offset_left = 424.0
+offset_top = 442.0
+offset_right = 482.0
+offset_bottom = 493.0
 text = "
 c"

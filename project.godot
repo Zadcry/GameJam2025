@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 GLOBAL="*res://scripts/GLOBAL.gd"
 ScreenSettings="*res://menu_opciones/ScreenSettings.gd"
+AudioManager="*res://menu_opciones/AudioManager.gd"
 
 [display]
 

@@ -49,7 +49,8 @@ func _ready():
 
 func _input(event):
 	if event is InputEventKey and event.pressed and event.keycode == KEY_ENTER and levelBeaten:
-		get_tree().change_scene_to_file("res://escenas_niveles/nivel2.tscn")
+		Input.mouse_mode = Input.MOUSE_MODE_CONFINED
+		get_tree().change_scene_to_file("res://cutscenes/cs_final.tscn")
 		return
 
 func _process(delta: float) -> void:
